@@ -1,0 +1,79 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <DebuggerFlavor Condition="'$(DebuggerFlavor)'==''">WindowsLocalDebugger</DebuggerFlavor>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <VSInstallDir>$(Registry:HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\VisualStudio\12.0\Setup\VS@ProductDir)</VSInstallDir>
+    <VSInstallDir Condition="'$(VSInstallDir)' == ''">$(Registry:HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\VisualStudio\12.0\Setup\VS@ProductDir)</VSInstallDir>
+    <VSInstallDir Condition="'$(VSInstallDir)' == ''">$(Registry:HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\VCExpress\12.0\Setup\VS@ProductDir)</VSInstallDir>
+    <VSInstallDir Condition="'$(VSInstallDir)' == ''">$(Registry:HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\VCExpress\12.0\Setup\VS@ProductDir)</VSInstallDir>
+    <VCInstallDir>$(Registry:HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\VisualStudio\12.0\Setup\VC@ProductDir)</VCInstallDir>
+    <VCInstallDir Condition="'$(VCInstallDir)' == ''">$(Registry:HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\VisualStudio\12.0\Setup\VC@ProductDir)</VCInstallDir>
+    <VCInstallDir Condition="'$(VCInstallDir)' == ''">$(Registry:HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\VCExpress\12.0\Setup\VC@ProductDir)</VCInstallDir>
+    <VCInstallDir Condition="'$(VCInstallDir)' == ''">$(Registry:HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\VCExpress\12.0\Setup\VC@ProductDir)</VCInstallDir>
+    <WindowsSdkDir Condition="'$(UseEnv)' != 'true'">$(Registry:HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Microsoft SDKs\Windows\v8.1A@InstallationFolder)</WindowsSdkDir>
+    <WindowsSdkDir Condition="'$(WindowsSdkDir)' == ''">$(Registry:HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\Microsoft SDKs\Windows\v8.1A@InstallationFolder)</WindowsSdkDir>
+    <FrameworkDir Condition="'$(UseEnv)' != 'true'">$(Registry:HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\.NETFramework@InstallRoot)</FrameworkDir>
+    <FrameworkDir Condition="'$(FrameworkDir)' == ''">$(Registry:HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\.NETFramework@InstallRoot)</FrameworkDir>
+    <FrameworkSdkDir Condition="'$(UseEnv)' != 'true'">$(Registry:HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Microsoft SDKs\Windows\v8.1A@InstallationFolder)</FrameworkSdkDir>
+    <FrameworkSdkDir Condition="'$(FrameworkSdkDir)' == ''">$(Registry:HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\Microsoft SDKs\Windows\v8.1A@InstallationFolder)</FrameworkSdkDir>
+  </PropertyGroup>
+
+  <!-- Tool defaults -->
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <ObjectFileName Condition="'%(ClCompile.ObjectFileName)' == ''">$(IntDir)%(Filename).o</ObjectFileName>
+      <PreprocessorDefinitions Condition="'%(ClCompile.PreprocessorDefinitions)' == ''"></PreprocessorDefinitions>
+      <Warnings Condition="'%(ClCompile.Warnings)' == ''">NormalWarnings</Warnings>
+      <WarningsAsErrors Condition="'%(ClCompile.WarningsAsErrors)' == ''">false</WarningsAsErrors>
+      <WarnSystemHeaders Condition="'%(ClCompile.WarnSystemHeaders)' == ''">false</WarnSystemHeaders>
+      <ProgramDataBaseFileName Condition="'%(ClCompile.ProgramDataBaseFileName)'== ''">$(IntDir)</ProgramDataBaseFileName>
+      <SystemIncludeDirectories Condition="'%(ClCompile.SystemIncludeDirectories)' == ''">$(IncludePath)</SystemIncludeDirectories>
+      <SystemPreprocessorDefinitions Condition="'%(ClCompile.SystemPreprocessorDefinitions)' == ''">$(EmscriptenDefines)</SystemPreprocessorDefinitions>
+      <SystemPreprocessorUndefinitions Condition="'%(ClCompile.SystemPreprocessorUndefinitions)' == ''">_WIN32;WIN32;__i386__;__x86_64__;__i386;__x86_64;__SSE__;__SSE2__;__MMX__;X87_DOUBLE_ROUNDING;HAVE_GCC_ASM_FOR_X87;__STRICT_ANSI__;__CYGWIN__;__APPLE__</SystemPreprocessorUndefinitions>
+      <EchoCommandLines Condition="'%(ClCompile.EchoCommandLines)' == ''">false</EchoCommandLines>
+      <TrackerLogDirectory Condition="'%(ClCompile.TrackerLogDirectory)'== ''">$(TLogLocation)</TrackerLogDirectory>
+    </ClCompile>
+    <Lib>      
+      <OutputFile Condition="'%(Lib.OutputFile)' == ''">$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
+      <EchoCommandLines Condition="'%(Lib.EchoCommandLines)' == ''">false</EchoCommandLines>
+      <TrackerLogDirectory Condition="'%(Lib.TrackerLogDirectory)'== ''">$(TLogLocation)</TrackerLogDirectory>
+    </Lib>
+    <Link>      
+      <OutputFile Condition="'%(Link.OutputFile)' == ''">$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
+      <AdditionalDependencies Condition="'%(Link.AdditionalDependencies)' == ''"></AdditionalDependencies>
+      <AdditionalLibraryDirectories Condition="'%(Link.AdditionalLibraryDirectories)' == ''"></AdditionalLibraryDirectories>
+      <Warnings Condition="'%(ClCompile.Warnings)' == ''">NormalWarnings</Warnings>
+      <WarningsAsErrors Condition="'%(ClCompile.WarningsAsErrors)' == ''">false</WarningsAsErrors>
+      <TypedArrays Condition="'%(Link.TypedArrays)' == ''">NotSet</TypedArrays>
+      <IgnoreDynamicLinking Condition="'%(Link.IgnoreDynamicLinking)' == ''">false</IgnoreDynamicLinking>
+      <SystemLibraryDirectories Condition="'%(Link.SystemLibraryDirectories)' == ''">$(LibraryPath)</SystemLibraryDirectories>
+      <EchoCommandLines Condition="'%(Link.EchoCommandLines)' == ''">false</EchoCommandLines>
+      <TrackerLogDirectory Condition="'%(Link.TrackerLogDirectory)' == ''">$(TLogLocation)</TrackerLogDirectory>
+    </Link>
+  </ItemDefinitionGroup>
+
+  <!-- Tool defaults - Debug builds -->
+  <ItemDefinitionGroup Condition="$(Configuration) == 'Debug'">
+    <ClCompile>
+      <OptimizationLevel Condition="'%(ClCompile.OptimizationLevel)' == ''">O0</OptimizationLevel>
+      <GenerateDebugInformation Condition="'%(ClCompile.GenerateDebugInformation)' == ''">FullDebugInfo</GenerateDebugInformation>
+    </ClCompile>
+    <Link>
+      <LinkerOptimizationLevel Condition="'%(Link.LinkerOptimizationLevel)' == ''">NotSet</LinkerOptimizationLevel>
+    </Link>
+  </ItemDefinitionGroup>
+  <!-- Tool defaults - Non-debug builds -->
+  <ItemDefinitionGroup Condition="$(Configuration) != 'Debug'">
+    <ClCompile>
+      <OptimizationLevel Condition="'%(ClCompile.OptimizationLevel)' == ''">O2</OptimizationLevel>
+      <GenerateDebugInformation Condition="'%(ClCompile.GenerateDebugInformation)' == ''">NoDebugInfo</GenerateDebugInformation>
+    </ClCompile>
+    <Link>
+      <LinkerOptimizationLevel Condition="'%(Link.LinkerOptimizationLevel)' == ''">O3</LinkerOptimizationLevel>
+    </Link>    
+  </ItemDefinitionGroup>
+
+</Project>

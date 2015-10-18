@@ -1,0 +1,118 @@
+<Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Platform.targets" />
+  <Import Project="$(MSBuildThisFileDirectory)Emscripten.CppBuild.targets" />
+
+  <UsingTask TaskName="GCCCompile" AssemblyFile="$(MSBuildThisFileDirectory)vs-android.Build.CPPTasks.Android.dll" />
+  <UsingTask TaskName="GCCLink" AssemblyFile="$(MSBuildThisFileDirectory)vs-android.Build.CPPTasks.Android.dll" />
+
+  <!-- Compile -->
+  <Target Name="ClCompile" Condition="'@(ClCompile)' != ''" DependsOnTargets="SelectClCompile">
+
+    <ItemGroup>
+      <ClCompile>
+        <CompileAs Condition="('%(ClCompile.CompileAs)' == 'Default' and '%(ClCompile.Extension)' == '.c')">CompileAsC</CompileAs>
+        <CompileAs Condition="('%(ClCompile.CompileAs)' == 'Default' and '%(ClCompile.Extension)' == '.s')">CompileAsAsm</CompileAs>
+        <CompileAs Condition="('%(ClCompile.CompileAs)' == 'Default' and '%(ClCompile.Extension)' == '.asm')">CompileAsAsm</CompileAs>
+        <CompileAs Condition="('%(ClCompile.CompileAs)' == 'Default' and ('%(ClCompile.Extension)' != '.c' and '%(ClCompile.Extension)' != '.s' and '%(ClCompile.Extension)' != '.asm'))">CompileAsCpp</CompileAs>
+        <MinimalRebuildFromTracking Condition="'$(BuildType)' != 'Build' or '$(ForceRebuild)' == 'true'">false</MinimalRebuildFromTracking>
+        <MinimalRebuildFromTracking Condition="'%(ClCompile.MinimalRebuildFromTracking)' == '' and '$(BuildType)' == 'Build' and '$(ForceRebuild)' != 'true'">true</MinimalRebuildFromTracking>
+      </ClCompile>
+    </ItemGroup>
+
+    <PropertyGroup>
+      <CLToolArchitecture Condition="'$(CLToolArchitecture)' == ''">$(VCToolArchitecture)</CLToolArchitecture>
+    </PropertyGroup>
+
+    <GCCCompile
+        Condition = "'%(ClCompile.ExcludedFromBuild)' != 'true'"
+        BuildingInIDE = "$(BuildingInsideVisualStudio)"
+        Sources = "@(ClCompile)"
+        TrackerLogDirectory = "%(ClCompile.TrackerLogDirectory)"
+        TLogReadFiles = "@(CLTLogReadFiles)"
+        TLogWriteFiles = "@(CLTLogWriteFiles)"
+        ToolExe = "$(CLToolExe)"
+        ToolPath = "$(CLToolPath)"
+        TrackFileAccess = "$(TrackFileAccess)"
+        MinimalRebuildFromTracking = "%(ClCompile.MinimalRebuildFromTracking)"
+        ToolArchitecture = "$(CLToolArchitecture)"
+        AcceptableNonZeroExitCodes = "%(ClCompile.AcceptableNonZeroExitCodes)"
+        GCCToolPath = "$(GccCompiler)"
+        EchoCommandLines = "%(ClCompile.EchoCommandLines)"
+        PropertyXmlFile = "$(MSBuildThisFileDirectory)$(LangID)\emcc_compile.xml">
+    </GCCCompile>
+
+  </Target>
+
+  <!-- Lib -->
+  <Target Name="Lib" Condition="'@(Lib)' != ''">
+
+    <ItemGroup>
+      <Lib>
+        <MinimalRebuildFromTracking Condition="'%(Lib.MinimalRebuildFromTracking)' == '' and '$(BuildType)' == 'Build' and '$(ForceRebuild)' != 'true'">true</MinimalRebuildFromTracking>
+      </Lib>
+    </ItemGroup>
+
+    <PropertyGroup>
+      <LibToolArchitecture Condition="'$(LibToolArchitecture)' == ''">$(VCToolArchitecture)</LibToolArchitecture>
+    </PropertyGroup>
+
+    <GCCLink
+        BuildingInIDE = "$(BuildingInsideVisualStudio)"
+        Sources = "@(Lib)"
+        OutputFile = "%(Lib.OutputFile)"
+        TrackerLogDirectory = "%(Lib.TrackerLogDirectory)"
+        TLogReadFiles = "@(LIBTLogReadFiles)"
+        TLogWriteFiles = "@(LIBTLogWriteFiles)"
+        ToolExe = "$(LIBToolExe)"
+        ToolPath = "$(LIBToolPath)"
+        TrackFileAccess = "$(TrackFileAccess)"
+        MinimalRebuildFromTracking = "%(Lib.MinimalRebuildFromTracking)"
+        ToolArchitecture = "$(LibToolArchitecture)"
+        AcceptableNonZeroExitCodes = "%(Lib.AcceptableNonZeroExitCodes)"
+        EchoCommandLines = "%(Lib.EchoCommandLines)"
+        GCCToolPath = "$(GccLinker)"
+        PropertyXmlFile = "$(MSBuildThisFileDirectory)$(LangID)\emcc_lib.xml"
+    >
+        <Output TaskParameter="SkippedExecution" PropertyName="LibSkippedExecution" />
+    </GCCLink>
+
+    <Message Condition="'$(LibSkippedExecution)' == 'false'" Text="$(MSBuildProjectFile) -&gt; $(TargetPath)" Importance="High" />
+
+  </Target>
+
+  <!-- Link -->
+  <Target Name="Link" Condition="'@(Link)' != ''">
+
+    <PropertyGroup>
+      <LinkToolArchitecture Condition="'$(LinkToolArchitecture)' == ''">$(VCToolArchitecture)</LinkToolArchitecture>
+      <Link_MinimalRebuildFromTracking Condition="'@(Link->AnyHaveMetadataValue('MinimalRebuildFromTracking', 'false'))' == 'true'">false</Link_MinimalRebuildFromTracking>
+      <Link_MinimalRebuildFromTracking Condition="'$(BuildType)' != 'Build' or '$(ForceRebuild)' == 'true'" >false</Link_MinimalRebuildFromTracking>
+      <Link_MinimalRebuildFromTracking Condition="'$(Link_MinimalRebuildFromTracking)' == ''">true</Link_MinimalRebuildFromTracking>
+    </PropertyGroup>
+
+    <GCCLink
+        BuildingInIDE = "$(BuildingInsideVisualStudio)"
+        Sources = "@(Link)"
+        OutputFile = "%(Link.OutputFile)"
+        TrackerLogDirectory = "%(Link.TrackerLogDirectory)"
+        TLogReadFiles = "@(LinkTLogReadFiles)"
+        TLogWriteFiles = "@(LinkTLogWriteFiles)"
+        ToolExe = "$(LinkToolExe)"
+        ToolPath = "$(LinkToolPath)"
+        TrackFileAccess = "$(TrackFileAccess)"
+        MinimalRebuildFromTracking = "$(Link_MinimalRebuildFromTracking)"
+        ToolArchitecture = "$(LinkToolArchitecture)"
+        AcceptableNonZeroExitCodes = "%(Link.AcceptableNonZeroExitCodes)"
+        EchoCommandLines = "%(Link.EchoCommandLines)"     
+        GCCToolPath = "$(GccLinker)"        
+        PropertyXmlFile = "$(MSBuildThisFileDirectory)$(LangID)\emcc_link.xml"
+    >
+      <Output TaskParameter="SkippedExecution" PropertyName="LinkSkippedExecution" />
+    </GCCLink>
+
+    <Message Condition="'$(LinkSkippedExecution)' == 'false'" Text="$(MSBuildProjectFile) -&gt; $(TargetPath)" Importance="High" />
+
+  </Target>
+
+</Project>

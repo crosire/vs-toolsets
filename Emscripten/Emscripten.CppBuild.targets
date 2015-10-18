@@ -1,0 +1,40 @@
+<Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <!-- Override all the default property pages and project tools -->
+  <PropertyGroup>
+    <UseDefaultProjectTools>false</UseDefaultProjectTools>
+    <UseDefaultPropertyPageSchemas>false</UseDefaultPropertyPageSchemas>
+    <UseDefaultGeneralPropertyPageSchema>false</UseDefaultGeneralPropertyPageSchema>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Property pages that always apply -->
+    <PropertyPageSchema Include="$(VCTargetsPath)$(LangID)\ProjectItemsSchema.xml;$(VCTargetsPath)$(LangID)\midl.xml;$(VCTargetsPath)$(LangID)\build_events.xml;$(VCTargetsPath)$(LangID)\custom_build_tool.xml;$(VCTargetsPath)$(LangID)\custom_build_step.xml;$(VCTargetsPath)$(LangID)\debugger_general.xml;$(VCTargetsPath)$(LangID)\debugger_local_windows.xml;$(MSBuildThisFileDirectory)$(LangID)\directories.xml; "/>
+    <PropertyPageSchema Include="$(MSBuildThisFileDirectory)$(LangID)\emcc_compile.xml" />
+    <PropertyPageSchema Include="$(MSBuildThisFileDirectory)$(LangID)\emcc_lib.xml" Condition="'$(ConfigurationType)' == 'StaticLibrary'" />
+    <PropertyPageSchema Include="$(MSBuildThisFileDirectory)$(LangID)\emcc_link.xml" Condition="'$(ConfigurationType)' == 'HTMLPage' or '$(ConfigurationType)' == 'JSApplication'" />
+
+	<!-- Property pages specific to files -->
+	<PropertyPageSchema Include="$(VCTargetsPath)$(LangID)\general_file.xml">
+      <Context>File</Context>
+    </PropertyPageSchema>
+    <!-- Property pages specific to project files -->
+    <PropertyPageSchema Include="$(MSBuildThisFileDirectory)$(LangID)\general.xml">
+      <Context>Project</Context>
+    </PropertyPageSchema>
+    <!-- Property pages specific to property sheets -->
+    <PropertyPageSchema Include="$(VCTargetsPath)$(LangID)\usermacros.xml;$(MSBuildThisFileDirectory)$(LangID)\general_ps.xml;">
+      <Context>PropertySheet</Context>
+    </PropertyPageSchema>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(ConfigurationType)' == 'HTMLPage' or '$(ConfigurationType)' == 'JSApplication'">
+    <ProjectTools Include="Link"/>
+    <ProjectTools Include="CustomBuildStep"/>
+  </ItemGroup>
+  <ItemGroup Condition="'$(ConfigurationType)' == 'StaticLibrary'">
+    <ProjectTools Include="Lib"/>
+    <ProjectTools Include="CustomBuildStep"/>
+  </ItemGroup>
+
+</Project>

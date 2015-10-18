@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Rule Name="Lib" DisplayName="Librarian" PageTemplate="tool" Order="40" SwitchPrefix="-" xmlns="http://schemas.microsoft.com/build/2009/properties" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:sys="clr-namespace:System;assembly=mscorlib">
+
+  <Rule.Categories>
+    <Category Name="General" DisplayName="General" />
+    <Category Name="Command Line" DisplayName="Command Line" Subtype="CommandLine" />
+  </Rule.Categories>
+  <Rule.DataSource>
+    <DataSource Persistence="ProjectFile" ItemType="Lib" Label="" HasConfigurationCondition="true" />
+  </Rule.DataSource>
+
+  <!-- General -->
+
+  <StringProperty Subtype="file" Name="OutputFile" DisplayName="Output File" Category="General" Switch="o " />
+
+  <BoolProperty Name="EchoCommandLines" DisplayName="Echo Command Lines" Category="General" /> 
+
+  <!-- Command Line -->
+
+  <StringProperty Name="AdditionalOptions" DisplayName="Additional Options" Description="Additional Options" Category="Command Line" />
+
+</Rule>

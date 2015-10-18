@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Rule Name="ConfigurationDirectories" DisplayName="Toolchain Directories" Description="Tool search directories" PageTemplate="generic" Order="8" xmlns="http://schemas.microsoft.com/build/2009/properties">
+
+  <Rule.Categories>
+    <Category Name="VC++" DisplayName="General" Description="Visual C++ Directories" />
+    <Category Name="Toolchain" DisplayName="Toolchain Paths" Description="Toolchain Paths" />
+   </Rule.Categories>
+  <Rule.DataSource>
+    <DataSource Persistence="ProjectFile" />
+  </Rule.DataSource>
+
+  <!-- Visual C++ Directories -->
+
+  <StringListProperty Name="ExecutablePath" DisplayName="Executable Directories" Description="Path to use when searching for executable files while building a VC++ project.  Corresponds to environment variable PATH." Category="VC++" F1Keyword="VC.Project.VCDirectories.ExecutablePath" Separator=";" Subtype="folder" />
+  <StringListProperty Name="IncludePath" DisplayName="Include Directories" Description="Path to use when searching for include files while building a VC++ project.  Corresponds to environment variable INCLUDE." Category="VC++" F1Keyword="VC.Project.VCDirectories.IncludePath" Separator=";" Subtype="folder" />
+  <StringListProperty Name="LibraryPath" DisplayName="Library Directories" Description="Path to use when searching for library files while building a VC++ project.  Corresponds to environment variable LIB." Category="VC++" F1Keyword="VC.Project.VCDirectories.LibraryPath" Separator=";" Subtype="folder" />
+
+  <!-- Toolchain Paths -->
+
+  <StringProperty Name="EmscriptenSDKDir" DisplayName="Emscripten SDK" Description="Specify the directory where the emscripten SDK was installed to. See https://github.com/kripken/emscripten.  Corresponds to environment variable EMSCRIPTEN." Category="Toolchain" />
+
+</Rule>
