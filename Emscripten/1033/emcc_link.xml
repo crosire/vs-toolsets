@@ -6,6 +6,7 @@
     <Category Name="Input" DisplayName="Input" />
     <Category Name="Optimization" DisplayName="Optimization" />
     <Category Name="Advanced" DisplayName="Advanced" />
+    <Category Name="All Options" DisplayName="All Options" Subtype="Search" />
     <Category Name="Command Line" DisplayName="Command Line" Subtype="CommandLine" />
   </Rule.Categories>
   <Rule.DataSource>
@@ -35,9 +36,7 @@
     <EnumValue Name="AllWarnings" DisplayName="Enable All Warnings" Switch="Wall" Description="Display all possible warnings detected by clang. "/>
   </EnumProperty>
 
-  <BoolProperty Name="IgnoreDynamicLinking" DisplayName="Ignore Dynamic Linking" Description="Normally emcc will treat dynamic linking like static linking, by linking in the code from the dynamic library. This fails if the same dynamic library is linked more than once. With this option, dynamic linking is ignored, which allows the build system to proceed without errors. However, you will need to manually link to the shared libraries later on yourself.Disregards dynamic library linkingminification process will be executed for the generated JavaScript code." Category="General" Switch="-ignore-dynamic-linking" />
-
-  <BoolProperty Name="EchoCommandLines" DisplayName="Echo Command Lines" Description="If true, the commands emcc is invoked with are printed to stdout during linking." Category="General" />
+  <BoolProperty Name="IgnoreDynamicLinking" DisplayName="Ignore Dynamic Linking" Description="Normally emcc will treat dynamic linking like static linking, by linking in the code from the dynamic library. This fails if the same dynamic library is linked more than once. With this option, dynamic linking is ignored, which allows the build system to proceed without errors. However, you will need to manually link to the shared libraries later on yourself.Disregards dynamic library linking minification process will be executed for the generated JavaScript code." Category="General" Switch="-ignore-dynamic-linking" />
 
   <!-- Input -->
 
@@ -54,28 +53,30 @@
   <!-- Optimization -->
 
   <EnumProperty Name="LinkerOptimizationLevel" DisplayName="Optimization" Category="Optimization">
-    <EnumValue Name="NotSet" DisplayName="Not set (default to -O0)" />
-    <EnumValue Name="O0" DisplayName="Disable Optimizations" Description="No optimizations (default)" Switch="O0" />
-    <EnumValue Name="O1" DisplayName="LLVM -O1, asm.js, relooping, disable exceptions and emcc system assertions, enable aliasing function pointers" Switch="O1" />
-    <EnumValue Name="O2" DisplayName="In addition to -O1: LLVM -O2" Switch="O2" />
-    <EnumValue Name="O3" DisplayName="In addition to -O2: LLVM -O3, Run Closure, LLVM LTO, force aligned memory, truncate doubles to floats on loads and stores, substitute double for int64" Switch="O3" />
+    <EnumValue Name="Custom" DisplayName="Default" />
+    <EnumValue Name="O0" DisplayName="Disabled" Switch="O0" />
+    <EnumValue Name="O1" DisplayName="LLVM O1, asm.js, relooping, disable exceptions, disable emcc system assertions, enable aliasing function pointers" Switch="O1" />
+    <EnumValue Name="O2" DisplayName="LLVM O2" Switch="O2" />
+    <EnumValue Name="O3" DisplayName="LLVM O3, LLVM LTO, closure, force aligned memory, truncate doubles to floats on loads and stores, substitute double for int64" Switch="O3" />
   </EnumProperty>
 
-  <BoolProperty Name="RunClosureCompiler" DisplayName="Force Closure Compiler Run (--closure)" Description="If true, the Closure Compiler is forced to be run as part of the build. If false, the Closure Compiler is forced to be disabled. If not set, Closure Compiler run is chosen by the current optimization level." Category="Optimization" Switch="-closure 1" ReverseSwitch="-closure 0" />
-  <BoolProperty Name="RunMinify" DisplayName="Force JS Code Minifier Run (--minify)" Description="If false, the JS code minification process will be skipped. Forcing to true is not currently supported. If not set, minification run is chosen by the current optimization level." Category="Optimization" Switch="-minify 1" ReverseSwitch="-minify 0" />
+  <BoolProperty Name="RunClosureCompiler" DisplayName="Force Closure Compiler Run (--closure)" Description="Forces the closure compiler to be run as part of the build or skips it if set to false." Category="Optimization" Switch="-closure 1" ReverseSwitch="-closure 0" />
+  <BoolProperty Name="RunMinify" DisplayName="Force JS Code Minifier Run (--minify)" Description="Skips the JS code minification process if set to false." Category="Optimization" Switch="-minify 1" ReverseSwitch="-minify 0" />
 
   <!-- Advanced -->
 
   <EnumProperty Name="TypedArrays" DisplayName="Typed Arrays" Description="Specifies the compilation mode for typed arrays. See https://github.com/kripken/emscripten/wiki/Code-Generation-Modes." Category="Advanced">
-    <EnumValue Name="NotSet" DisplayName="Not set (default to Shared typed arrays)" />
+    <EnumValue Name="Default" DisplayName="Default" />
     <EnumValue Name="NoTypedArrays" DisplayName="No Typed Arrays" Switch="-typed-arrays=0" />
     <EnumValue Name="ParallelTypedArrays" DisplayName="Parallel Typed Arrays" Switch="-typed-arrays=1" />
-    <EnumValue Name="SharedTypedArrays" DisplayName="Shared (C-like) Typed Arrays" Switch="-typed-arrays=2" />
+    <EnumValue Name="SharedTypedArrays" DisplayName="Shared Typed Arrays" Switch="-typed-arrays=2" />
   </EnumProperty>
 
-  <StringListProperty Subtype="folder" Name="EnableWarnings" DisplayName="Enable Specific Warnings (-W)" Description="Specify a semicolon(;)-separated list of warnings to be enabled." Category="Advanced" Switch="W" />
-  <StringListProperty Subtype="folder" Name="DisableWarnings" DisplayName="Disable Specific Warnings (-Wno-)" Description="Specify a semicolon(;)-separated list of warnings to be suppressed by clang." Category="Advanced" Switch="Wno-" />
-  <BoolProperty Name="WarningsAsErrors" DisplayName="Treat All Warnings as Errors (-Werror)" Description="Turns all warnings into errors." Category="Advanced" Switch="Werror" />
+  <StringListProperty Subtype="folder" Name="EnableWarnings" DisplayName="Enable Specific Warnings" Description="Specify one or more warnings to be enabled." Category="Advanced" Switch="W" />
+  <StringListProperty Subtype="folder" Name="DisableWarnings" DisplayName="Disable Specific Warnings" Description="Specify one or more warnings to be suppressed." Category="Advanced" Switch="Wno-" />
+  <BoolProperty Name="WarningsAsErrors" DisplayName="Treat Warnings as Errors" Description="Treats all linker warnings as errors." Category="Advanced" Switch="Werror" />
+
+  <BoolProperty Name="EchoCommandLines" DisplayName="Echo Command Lines" Description="Print out the commands emcc is invoked with during linking." Category="Advanced" />
 
   <!-- Command Line -->
 

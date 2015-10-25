@@ -1,10 +1,12 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
+  <!-- Paths -->
   <PropertyGroup>
-    <DebuggerFlavor Condition="'$(DebuggerFlavor)'==''">WindowsLocalDebugger</DebuggerFlavor>
-  </PropertyGroup>
+    <IntDir Condition="'$(IntDir)' == '' and '$(IntermediateOutputPath)' != ''">$(IntermediateOutputPath)</IntDir>
+    <IntDir Condition="'$(IntDir)' == '' and '$(IntermediateOutputPath)' == ''">$(Platform)\$(Configuration)\</IntDir>
+    <OutDir Condition="'$(OutDir)' == '' and '$(SolutionDir)' != ''">$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+    <OutDir Condition="'$(OutDir)' == '' and '$(SolutionDir)' == ''">$(IntDir)</OutDir>
 
-  <PropertyGroup>
     <VSInstallDir>$(Registry:HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\VisualStudio\12.0\Setup\VS@ProductDir)</VSInstallDir>
     <VSInstallDir Condition="'$(VSInstallDir)' == ''">$(Registry:HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\VisualStudio\12.0\Setup\VS@ProductDir)</VSInstallDir>
     <VSInstallDir Condition="'$(VSInstallDir)' == ''">$(Registry:HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\VCExpress\12.0\Setup\VS@ProductDir)</VSInstallDir>
@@ -19,6 +21,45 @@
     <FrameworkDir Condition="'$(FrameworkDir)' == ''">$(Registry:HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\.NETFramework@InstallRoot)</FrameworkDir>
     <FrameworkSdkDir Condition="'$(UseEnv)' != 'true'">$(Registry:HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Microsoft SDKs\Windows\v8.1A@InstallationFolder)</FrameworkSdkDir>
     <FrameworkSdkDir Condition="'$(FrameworkSdkDir)' == ''">$(Registry:HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\Microsoft SDKs\Windows\v8.1A@InstallationFolder)</FrameworkSdkDir>
+    <EmscriptenSDKDir Condition="'$(EmscriptenSDKDir)' == ''">$(EMSCRIPTEN)</EmscriptenSDKDir>
+
+    <IncludePath Condition="'$(IncludePath)' == '' and '$(PlatformToolset)' == 'emcc'">$(EmscriptenSDKDir)\system\local\include;$(EmscriptenSDKDir)\system\include\compat;$(EmscriptenSDKDir)\system\include\libcxx;$(EmscriptenSDKDir)\system\include;$(EmscriptenSDKDir)\system\include\emscripten;$(EmscriptenSDKDir)\system\include\bsd;$(EmscriptenSDKDir)\system\include\libc;$(EmscriptenSDKDir)\system\include\gfx;$(EmscriptenSDKDir)\system\include\net;$(EmscriptenSDKDir)\system\include\SDL;</IncludePath>
+    <ExecutablePath Condition="'$(ExecutablePath)' == '' and '$(PlatformToolset)' == 'emcc'">$(EmscriptenSDKDir);$(PATH);</ExecutablePath>
+  </PropertyGroup>
+
+  <!-- Configuration types -->
+  <PropertyGroup Condition="'$(ConfigurationType)' == 'HTMLPage'">
+    <LinkCompiled>true</LinkCompiled>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(ConfigurationType)' == 'JSApplication'">
+    <LinkCompiled>true</LinkCompiled>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(ConfigurationType)' == 'StaticLibrary'">
+    <LibCompiled>true</LibCompiled>
+  </PropertyGroup>
+
+  <!-- File extension defaults -->
+  <PropertyGroup Condition="'$(ConfigurationType)' == 'HTMLPage' and ('$(TargetExt)' == '' or '$(TargetExt)' == '.exe')">
+    <TargetExt>.html</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(ConfigurationType)' == 'JSApplication' and ('$(TargetExt)' == '' or '$(TargetExt)' == '.exe')">
+    <TargetExt>.js</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(ConfigurationType)' == 'StaticLibrary' and ('$(TargetExt)' == '' or '$(TargetExt)' == '.lib')">
+    <TargetExt>.bc</TargetExt>
+  </PropertyGroup>
+
+  <!-- Set up debugger command line -->
+  <PropertyGroup>
+    <DebuggerFlavor Condition="'$(DebuggerFlavor)'==''">WindowsLocalDebugger</DebuggerFlavor>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(ConfigurationType)' == 'HTMLPage'">
+    <LocalDebuggerCommand>$(MSBuildThisFileDirectory)\start.bat</LocalDebuggerCommand>
+    <LocalDebuggerCommandArguments>$(TargetPath)</LocalDebuggerCommandArguments>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(ConfigurationType)' == 'JSApplication'">
+    <LocalDebuggerCommand>$(MSBuildThisFileDirectory)\start_node.bat</LocalDebuggerCommand>
+    <LocalDebuggerCommandArguments>$(TargetPath)</LocalDebuggerCommandArguments>
   </PropertyGroup>
 
   <!-- Tool defaults -->
@@ -28,11 +69,9 @@
       <PreprocessorDefinitions Condition="'%(ClCompile.PreprocessorDefinitions)' == ''"></PreprocessorDefinitions>
       <Warnings Condition="'%(ClCompile.Warnings)' == ''">NormalWarnings</Warnings>
       <WarningsAsErrors Condition="'%(ClCompile.WarningsAsErrors)' == ''">false</WarningsAsErrors>
-      <WarnSystemHeaders Condition="'%(ClCompile.WarnSystemHeaders)' == ''">false</WarnSystemHeaders>
-      <ProgramDataBaseFileName Condition="'%(ClCompile.ProgramDataBaseFileName)'== ''">$(IntDir)</ProgramDataBaseFileName>
       <SystemIncludeDirectories Condition="'%(ClCompile.SystemIncludeDirectories)' == ''">$(IncludePath)</SystemIncludeDirectories>
-      <SystemPreprocessorDefinitions Condition="'%(ClCompile.SystemPreprocessorDefinitions)' == ''">$(EmscriptenDefines)</SystemPreprocessorDefinitions>
-      <SystemPreprocessorUndefinitions Condition="'%(ClCompile.SystemPreprocessorUndefinitions)' == ''">_WIN32;WIN32;__i386__;__x86_64__;__i386;__x86_64;__SSE__;__SSE2__;__MMX__;X87_DOUBLE_ROUNDING;HAVE_GCC_ASM_FOR_X87;__STRICT_ANSI__;__CYGWIN__;__APPLE__</SystemPreprocessorUndefinitions>
+      <SystemPreprocessorDefinitions Condition="'%(ClCompile.SystemPreprocessorDefinitions)' == ''">EMSCRIPTEN;__EMSCRIPTEN__;</SystemPreprocessorDefinitions>
+      <ExceptionHandling Condition="'%(ClCompile.ExceptionHandling)' == '' or '%(ClCompile.ExceptionHandling)' == 'Sync'">Enabled</ExceptionHandling>
       <EchoCommandLines Condition="'%(ClCompile.EchoCommandLines)' == ''">false</EchoCommandLines>
       <TrackerLogDirectory Condition="'%(ClCompile.TrackerLogDirectory)'== ''">$(TLogLocation)</TrackerLogDirectory>
     </ClCompile>
@@ -47,7 +86,7 @@
       <AdditionalLibraryDirectories Condition="'%(Link.AdditionalLibraryDirectories)' == ''"></AdditionalLibraryDirectories>
       <Warnings Condition="'%(ClCompile.Warnings)' == ''">NormalWarnings</Warnings>
       <WarningsAsErrors Condition="'%(ClCompile.WarningsAsErrors)' == ''">false</WarningsAsErrors>
-      <TypedArrays Condition="'%(Link.TypedArrays)' == ''">NotSet</TypedArrays>
+      <TypedArrays Condition="'%(Link.TypedArrays)' == ''">Default</TypedArrays>
       <IgnoreDynamicLinking Condition="'%(Link.IgnoreDynamicLinking)' == ''">false</IgnoreDynamicLinking>
       <SystemLibraryDirectories Condition="'%(Link.SystemLibraryDirectories)' == ''">$(LibraryPath)</SystemLibraryDirectories>
       <EchoCommandLines Condition="'%(Link.EchoCommandLines)' == ''">false</EchoCommandLines>
@@ -55,21 +94,21 @@
     </Link>
   </ItemDefinitionGroup>
 
-  <!-- Tool defaults - Debug builds -->
+  <!-- Tool defaults - debug builds -->
   <ItemDefinitionGroup Condition="$(Configuration) == 'Debug'">
     <ClCompile>
       <OptimizationLevel Condition="'%(ClCompile.OptimizationLevel)' == ''">O0</OptimizationLevel>
-      <GenerateDebugInformation Condition="'%(ClCompile.GenerateDebugInformation)' == ''">FullDebugInfo</GenerateDebugInformation>
+      <GenerateDebugInformation Condition="'%(ClCompile.GenerateDebugInformation)' == ''">FullDebug</GenerateDebugInformation>
     </ClCompile>
     <Link>
-      <LinkerOptimizationLevel Condition="'%(Link.LinkerOptimizationLevel)' == ''">NotSet</LinkerOptimizationLevel>
+      <LinkerOptimizationLevel Condition="'%(Link.LinkerOptimizationLevel)' == ''">O0</LinkerOptimizationLevel>
     </Link>
   </ItemDefinitionGroup>
-  <!-- Tool defaults - Non-debug builds -->
+  <!-- Tool defaults - non-debug builds -->
   <ItemDefinitionGroup Condition="$(Configuration) != 'Debug'">
     <ClCompile>
       <OptimizationLevel Condition="'%(ClCompile.OptimizationLevel)' == ''">O2</OptimizationLevel>
-      <GenerateDebugInformation Condition="'%(ClCompile.GenerateDebugInformation)' == ''">NoDebugInfo</GenerateDebugInformation>
+      <GenerateDebugInformation Condition="'%(ClCompile.GenerateDebugInformation)' == ''">None</GenerateDebugInformation>
     </ClCompile>
     <Link>
       <LinkerOptimizationLevel Condition="'%(Link.LinkerOptimizationLevel)' == ''">O3</LinkerOptimizationLevel>

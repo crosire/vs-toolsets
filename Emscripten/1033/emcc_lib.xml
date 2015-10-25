@@ -3,6 +3,7 @@
 
   <Rule.Categories>
     <Category Name="General" DisplayName="General" />
+    <Category Name="All Options" DisplayName="All Options" Subtype="Search" />
     <Category Name="Command Line" DisplayName="Command Line" Subtype="CommandLine" />
   </Rule.Categories>
   <Rule.DataSource>

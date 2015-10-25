@@ -1,12 +1,4 @@
-﻿<Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(VCTargetsPath)\Microsoft.CppCommon.targets" />
-
-  <PropertyGroup>
-    <GccCompiler Condition="'$(EmscriptenSDKDir)' != ''">$(EmscriptenSDKDir)\emcc.bat</GccCompiler>
-    <GccCompiler Condition="'$(EmscriptenSDKDir)' == ''">emcc.bat</GccCompiler>
-    <GccLinker Condition="'$(EmscriptenSDKDir)' != ''">$(EmscriptenSDKDir)\emcc.bat</GccLinker>
-    <GccLinker Condition="'$(EmscriptenSDKDir)' == ''">emcc.bat</GccLinker>
-  </PropertyGroup>
-
+  <Import Project="$(VCTargetsPath)\Platforms\$(Platform)\Emscripten.Common.targets" />
 </Project>
