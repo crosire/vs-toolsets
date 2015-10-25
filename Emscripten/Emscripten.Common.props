@@ -49,19 +49,6 @@
     <TargetExt>.bc</TargetExt>
   </PropertyGroup>
 
-  <!-- Set up debugger command line -->
-  <PropertyGroup>
-    <DebuggerFlavor Condition="'$(DebuggerFlavor)'==''">WindowsLocalDebugger</DebuggerFlavor>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(ConfigurationType)' == 'HTMLPage'">
-    <LocalDebuggerCommand>$(MSBuildThisFileDirectory)\start.bat</LocalDebuggerCommand>
-    <LocalDebuggerCommandArguments>$(TargetPath)</LocalDebuggerCommandArguments>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(ConfigurationType)' == 'JSApplication'">
-    <LocalDebuggerCommand>$(MSBuildThisFileDirectory)\start_node.bat</LocalDebuggerCommand>
-    <LocalDebuggerCommandArguments>$(TargetPath)</LocalDebuggerCommandArguments>
-  </PropertyGroup>
-
   <!-- Tool defaults -->
   <ItemDefinitionGroup>
     <ClCompile>

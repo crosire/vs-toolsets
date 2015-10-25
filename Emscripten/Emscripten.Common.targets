@@ -111,24 +111,10 @@
 
   </Target>
 
-  <!-- Property Pages -->
-  <ItemGroup>
-    <PropertyPageSchema Include="$(VCTargetsPath)$(LangID)\ProjectItemsSchema.xml;$(VCTargetsPath)$(LangID)\midl.xml;$(VCTargetsPath)$(LangID)\build_events.xml;$(VCTargetsPath)$(LangID)\custom_build_tool.xml;$(VCTargetsPath)$(LangID)\custom_build_step.xml;$(VCTargetsPath)$(LangID)\debugger_general.xml;$(VCTargetsPath)$(LangID)\debugger_local_windows.xml;$(MSBuildThisFileDirectory)$(LangID)\directories.xml;" />
-    <PropertyPageSchema Include="$(MSBuildThisFileDirectory)$(LangID)\emcc.xml" />
-    <PropertyPageSchema Include="$(MSBuildThisFileDirectory)$(LangID)\emcc_lib.xml" Condition="'$(ConfigurationType)' == 'StaticLibrary'" />
-    <PropertyPageSchema Include="$(MSBuildThisFileDirectory)$(LangID)\emcc_link.xml" Condition="'$(ConfigurationType)' == 'HTMLPage' or '$(ConfigurationType)' == 'JSApplication'" />
-
-    <PropertyPageSchema Include="$(VCTargetsPath)$(LangID)\general_file.xml">
-      <Context>File</Context>
-    </PropertyPageSchema>
-    <PropertyPageSchema Include="$(MSBuildThisFileDirectory)$(LangID)\general.xml">
-      <Context>Project</Context>
-    </PropertyPageSchema>
-    <PropertyPageSchema Include="$(VCTargetsPath)$(LangID)\usermacros.xml;$(MSBuildThisFileDirectory)$(LangID)\general_ps.xml;">
-      <Context>PropertySheet</Context>
-    </PropertyPageSchema>
-  </ItemGroup>
-
+  <!-- Project Tools -->
+  <PropertyGroup>
+    <UseDefaultProjectTools>false</UseDefaultProjectTools>
+  </PropertyGroup>
   <ItemGroup Condition="'$(ConfigurationType)' == 'HTMLPage' or '$(ConfigurationType)' == 'JSApplication'">
     <ProjectTools Include="Link" />
     <ProjectTools Include="CustomBuildStep" />
@@ -136,6 +122,20 @@
   <ItemGroup Condition="'$(ConfigurationType)' == 'StaticLibrary'">
     <ProjectTools Include="Lib" />
     <ProjectTools Include="CustomBuildStep" />
+  </ItemGroup>
+
+  <!-- Property Pages -->
+  <PropertyGroup>
+    <UseDefaultDebuggersPropertyPageSchemas>false</UseDefaultDebuggersPropertyPageSchemas>
+  </PropertyGroup>
+  <ItemGroup>
+    <PropertyPageSchema Include="$(MSBuildThisFileDirectory)$(LangID)\general.xml">
+      <Context>Project</Context>
+    </PropertyPageSchema>
+    <PropertyPageSchema Include="$(MSBuildThisFileDirectory)$(LangID)\directories.xml;" />
+    <PropertyPageSchema Include="$(MSBuildThisFileDirectory)$(LangID)\emcc.xml" />
+    <PropertyPageSchema Include="$(MSBuildThisFileDirectory)$(LangID)\emcc_lib.xml" Condition="'$(ConfigurationType)' == 'StaticLibrary'" />
+    <PropertyPageSchema Include="$(MSBuildThisFileDirectory)$(LangID)\emcc_link.xml" Condition="'$(ConfigurationType)' == 'HTMLPage' or '$(ConfigurationType)' == 'JSApplication'" />
   </ItemGroup>
 
 </Project>
