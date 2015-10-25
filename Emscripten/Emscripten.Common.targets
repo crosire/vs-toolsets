@@ -1,5 +1,7 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
+  <Import Project="$(VCTargetsPath)\Microsoft.CppCommon.targets" />
+
   <UsingTask TaskName="GCCCompile" AssemblyFile="$(MSBuildThisFileDirectory)\vs-android.Build.CPPTasks.Android.dll" />
   <UsingTask TaskName="GCCLink" AssemblyFile="$(MSBuildThisFileDirectory)\vs-android.Build.CPPTasks.Android.dll" />
 
@@ -111,7 +113,7 @@
 
   </Target>
 
-  <!-- Project Tools -->
+  <!-- Project tools -->
   <PropertyGroup>
     <UseDefaultProjectTools>false</UseDefaultProjectTools>
   </PropertyGroup>
@@ -124,7 +126,7 @@
     <ProjectTools Include="CustomBuildStep" />
   </ItemGroup>
 
-  <!-- Property Pages -->
+  <!-- Property pages -->
   <PropertyGroup>
     <UseDefaultDebuggersPropertyPageSchemas>false</UseDefaultDebuggersPropertyPageSchemas>
   </PropertyGroup>
