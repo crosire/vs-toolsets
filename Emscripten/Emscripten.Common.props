@@ -18,8 +18,8 @@
     <FrameworkSdkDir Condition="'$(FrameworkSdkDir)' == ''">$(Registry:HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\Microsoft SDKs\Windows\v8.1A@InstallationFolder)</FrameworkSdkDir>
     <EmscriptenSDKDir Condition="'$(EmscriptenSDKDir)' == ''">$(EMSCRIPTEN)</EmscriptenSDKDir>
 
-    <IncludePath Condition="'$(IncludePath)' == '' and '$(PlatformToolset)' == 'emcc'">$(EmscriptenSDKDir)\system\local\include;$(EmscriptenSDKDir)\system\include\compat;$(EmscriptenSDKDir)\system\include\libcxx;$(EmscriptenSDKDir)\system\include;$(EmscriptenSDKDir)\system\include\emscripten;$(EmscriptenSDKDir)\system\include\bsd;$(EmscriptenSDKDir)\system\include\libc;$(EmscriptenSDKDir)\system\include\gfx;$(EmscriptenSDKDir)\system\include\net;$(EmscriptenSDKDir)\system\include\SDL;</IncludePath>
-    <ExecutablePath Condition="'$(ExecutablePath)' == '' and '$(PlatformToolset)' == 'emcc'">$(EmscriptenSDKDir);$(PATH);</ExecutablePath>
+    <IncludePath Condition="'$(IncludePath)' == ''">$(EmscriptenSDKDir)\system\local\include;$(EmscriptenSDKDir)\system\include\compat;$(EmscriptenSDKDir)\system\include\libcxx;$(EmscriptenSDKDir)\system\include;$(EmscriptenSDKDir)\system\include\emscripten;$(EmscriptenSDKDir)\system\include\bsd;$(EmscriptenSDKDir)\system\include\libc;$(EmscriptenSDKDir)\system\include\gfx;$(EmscriptenSDKDir)\system\include\net;$(EmscriptenSDKDir)\system\include\SDL;</IncludePath>
+    <ExecutablePath Condition="'$(ExecutablePath)' == ''">$(EmscriptenSDKDir);$(PATH);</ExecutablePath>
   </PropertyGroup>
 
   <!-- General -->

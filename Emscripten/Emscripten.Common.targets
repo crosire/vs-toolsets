@@ -5,11 +5,6 @@
   <UsingTask TaskName="GCCCompile" AssemblyFile="$(MSBuildThisFileDirectory)\vs-android.Build.CPPTasks.Android.dll" />
   <UsingTask TaskName="GCCLink" AssemblyFile="$(MSBuildThisFileDirectory)\vs-android.Build.CPPTasks.Android.dll" />
 
-  <PropertyGroup>
-    <GCCToolPath Condition="'$(EmscriptenSDKDir)' != ''">$(EmscriptenSDKDir)\emcc.bat</GCCToolPath>
-    <GCCToolPath Condition="'$(EmscriptenSDKDir)' == ''">emcc.bat</GCCToolPath>
-  </PropertyGroup>
-
   <!-- Compile -->
   <Target Name="ClCompile" Condition="'@(ClCompile)' != ''" DependsOnTargets="SelectClCompile">
 
@@ -33,7 +28,7 @@
         TLogWriteFiles = "@(CLTLogWriteFiles)"
         ToolExe = "$(CLToolExe)"
         ToolPath = "$(CLToolPath)"
-        GCCToolPath = "$(GCCToolPath)"
+        GCCToolPath = "$([System.IO.Path]::Combine($(EmscriptenSDKDir),'emcc.bat'))"
         TrackFileAccess = "$(TrackFileAccess)"
         MinimalRebuildFromTracking = "%(ClCompile.MinimalRebuildFromTracking)"
         ToolArchitecture = "$(CLToolArchitecture)"
@@ -66,7 +61,7 @@
         TLogWriteFiles = "@(LIBTLogWriteFiles)"
         ToolExe = "$(LIBToolExe)"
         ToolPath = "$(LIBToolPath)"
-        GCCToolPath = "$(GCCToolPath)"
+        GCCToolPath = "$([System.IO.Path]::Combine($(EmscriptenSDKDir),'emcc.bat'))"
         TrackFileAccess = "$(TrackFileAccess)"
         MinimalRebuildFromTracking = "%(Lib.MinimalRebuildFromTracking)"
         ToolArchitecture = "$(LibToolArchitecture)"
@@ -99,7 +94,7 @@
         TLogWriteFiles = "@(LinkTLogWriteFiles)"
         ToolExe = "$(LinkToolExe)"
         ToolPath = "$(LinkToolPath)"
-        GCCToolPath = "$(GCCToolPath)"
+        GCCToolPath = "$([System.IO.Path]::Combine($(EmscriptenSDKDir),'emcc.bat'))"
         TrackFileAccess = "$(TrackFileAccess)"
         MinimalRebuildFromTracking = "$(Link_MinimalRebuildFromTracking)"
         ToolArchitecture = "$(LinkToolArchitecture)"
