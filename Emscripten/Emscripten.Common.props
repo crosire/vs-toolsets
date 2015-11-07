@@ -2,14 +2,10 @@
 
   <!-- Paths -->
   <PropertyGroup>
-    <VCInstallDir Condition="'$(VCInstallDir)' == ''">$(Registry:HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\VisualStudio\12.0\Setup\VC@ProductDir)</VCInstallDir>
-    <VCInstallDir Condition="'$(VCInstallDir)' == ''">$(Registry:HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\VisualStudio\12.0\Setup\VC@ProductDir)</VCInstallDir>
-    <VCInstallDir Condition="'$(VCInstallDir)' == ''">$(Registry:HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\VCExpress\12.0\Setup\VC@ProductDir)</VCInstallDir>
-    <VCInstallDir Condition="'$(VCInstallDir)' == ''">$(Registry:HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\VCExpress\12.0\Setup\VC@ProductDir)</VCInstallDir>
-    <VSInstallDir Condition="'$(VSInstallDir)' == ''">$(Registry:HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\VisualStudio\12.0\Setup\VS@ProductDir)</VSInstallDir>
-    <VSInstallDir Condition="'$(VSInstallDir)' == ''">$(Registry:HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\VisualStudio\12.0\Setup\VS@ProductDir)</VSInstallDir>
-    <VSInstallDir Condition="'$(VSInstallDir)' == ''">$(Registry:HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\VCExpress\12.0\Setup\VS@ProductDir)</VSInstallDir>
-    <VSInstallDir Condition="'$(VSInstallDir)' == ''">$(Registry:HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\VCExpress\12.0\Setup\VS@ProductDir)</VSInstallDir>
+    <VCInstallDir Condition="'$(VCInstallDir)' == ''">$([MSBuild]::GetRegistryValueFromView('HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\VisualStudio\$(VisualStudioVersion)\Setup\VC', 'ProductDir', null, RegistryView.Registry64, RegistryView.Registry32))</VCInstallDir>
+    <VCInstallDir Condition="'$(VCInstallDir)' == ''">$([MSBuild]::GetRegistryValueFromView('HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\VCExpress\$(VisualStudioVersion)\Setup\VC', 'ProductDir', null, RegistryView.Registry64, RegistryView.Registry32))</VCInstallDir>
+    <VSInstallDir Condition="'$(VSInstallDir)' == ''">$([MSBuild]::GetRegistryValueFromView('HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\VisualStudio\$(VisualStudioVersion)\Setup\VS', 'ProductDir', null, RegistryView.Registry64, RegistryView.Registry32))</VSInstallDir>
+    <VSInstallDir Condition="'$(VSInstallDir)' == ''">$([MSBuild]::GetRegistryValueFromView('HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\VCExpress\$(VisualStudioVersion)\Setup\VS', 'ProductDir', null, RegistryView.Registry64, RegistryView.Registry32))</VSInstallDir>
 
     <FrameworkDir Condition="'$(FrameworkDir)' == ''">FrameworkDir_is_not_defined</FrameworkDir>
     <WindowsSDKDir Condition="'$(WindowsSDKDir)' == ''">WindowsSdkDir_is_not_defined</WindowsSDKDir>
@@ -56,12 +52,12 @@
       <SystemPreprocessorDefinitions Condition="'%(ClCompile.SystemPreprocessorDefinitions)' == ''">EMSCRIPTEN;__EMSCRIPTEN__;</SystemPreprocessorDefinitions>
       <EchoCommandLines Condition="'%(ClCompile.EchoCommandLines)' == ''">false</EchoCommandLines>
       <ProgramDataBaseFileName Condition="'%(ClCompile.ProgramDataBaseFileName)' == ''"></ProgramDataBaseFileName>
-      <TrackerLogDirectory Condition="'%(ClCompile.TrackerLogDirectory)'== ''">$(TLogLocation)</TrackerLogDirectory>
+      <TrackerLogDirectory Condition="'%(ClCompile.TrackerLogDirectory)' == ''">$(TLogLocation)</TrackerLogDirectory>
     </ClCompile>
     <Lib>      
       <OutputFile Condition="'%(Lib.OutputFile)' == ''">$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
       <EchoCommandLines Condition="'%(Lib.EchoCommandLines)' == ''">false</EchoCommandLines>
-      <TrackerLogDirectory Condition="'%(Lib.TrackerLogDirectory)'== ''">$(TLogLocation)</TrackerLogDirectory>
+      <TrackerLogDirectory Condition="'%(Lib.TrackerLogDirectory)' == ''">$(TLogLocation)</TrackerLogDirectory>
     </Lib>
     <Link>      
       <OutputFile Condition="'%(Link.OutputFile)' == ''">$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
