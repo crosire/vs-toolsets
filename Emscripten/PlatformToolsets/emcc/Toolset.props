@@ -1,7 +1,67 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
   <PropertyGroup>
     <VCToolArchitecture>Native64Bit</VCToolArchitecture>
   </PropertyGroup>
 
-  <Import Project="$(VCTargetsPath)\Platforms\$(Platform)\Emscripten.Common.props" />
+  <Import Project="$(VCTargetsPath)\Platforms\$(Platform)\Platform.Common.props" />
+
+  <!-- Project tools defaults -->
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <ObjectFileName Condition="'%(ClCompile.ObjectFileName)' == ''">$(IntDir)%(Filename).o</ObjectFileName>
+      <PreprocessorDefinitions Condition="'%(ClCompile.PreprocessorDefinitions)' == ''"></PreprocessorDefinitions>
+      <Warnings Condition="'%(ClCompile.Warnings)' == ''">NormalWarnings</Warnings>
+      <WarningsAsErrors Condition="'%(ClCompile.WarningsAsErrors)' == ''">false</WarningsAsErrors>
+      <SystemIncludeDirectories Condition="'%(ClCompile.SystemIncludeDirectories)' == ''">$(IncludePath)</SystemIncludeDirectories>
+      <EchoCommandLines Condition="'%(ClCompile.EchoCommandLines)' == ''">false</EchoCommandLines>
+      <ProgramDataBaseFileName Condition="'%(ClCompile.ProgramDataBaseFileName)' == ''"></ProgramDataBaseFileName>
+      <TrackerLogDirectory Condition="'%(ClCompile.TrackerLogDirectory)' == ''">$(TLogLocation)</TrackerLogDirectory>
+    </ClCompile>
+    <Lib>      
+      <OutputFile Condition="'%(Lib.OutputFile)' == ''">$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
+      <EchoCommandLines Condition="'%(Lib.EchoCommandLines)' == ''">false</EchoCommandLines>
+      <TrackerLogDirectory Condition="'%(Lib.TrackerLogDirectory)' == ''">$(TLogLocation)</TrackerLogDirectory>
+    </Lib>
+    <Link>      
+      <OutputFile Condition="'%(Link.OutputFile)' == ''">$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
+      <AdditionalDependencies Condition="'%(Link.AdditionalDependencies)' == ''"></AdditionalDependencies>
+      <AdditionalLibraryDirectories Condition="'%(Link.AdditionalLibraryDirectories)' == ''"></AdditionalLibraryDirectories>
+      <Warnings Condition="'%(ClCompile.Warnings)' == ''">NormalWarnings</Warnings>
+      <WarningsAsErrors Condition="'%(ClCompile.WarningsAsErrors)' == ''">false</WarningsAsErrors>
+      <TypedArrays Condition="'%(Link.TypedArrays)' == ''">Default</TypedArrays>
+      <IgnoreDynamicLinking Condition="'%(Link.IgnoreDynamicLinking)' == ''">false</IgnoreDynamicLinking>
+      <SystemLibraryDirectories Condition="'%(Link.SystemLibraryDirectories)' == ''">$(LibraryPath)</SystemLibraryDirectories>
+      <EchoCommandLines Condition="'%(Link.EchoCommandLines)' == ''">false</EchoCommandLines>
+      <TrackerLogDirectory Condition="'%(Link.TrackerLogDirectory)' == ''">$(TLogLocation)</TrackerLogDirectory>
+    </Link>
+  </ItemDefinitionGroup>
+  <!-- Project tools defaults - debug builds -->
+  <ItemDefinitionGroup Condition="$(Configuration) == 'Debug'">
+    <ClCompile>
+      <OptimizationLevel Condition="'%(ClCompile.OptimizationLevel)' == ''">O0</OptimizationLevel>
+      <GenerateDebugInformation Condition="'%(ClCompile.GenerateDebugInformation)' == ''">FullDebug</GenerateDebugInformation>
+    </ClCompile>
+    <Link>
+      <LinkerOptimizationLevel Condition="'%(Link.LinkerOptimizationLevel)' == ''">O0</LinkerOptimizationLevel>
+    </Link>
+  </ItemDefinitionGroup>
+  <!-- Project tools defaults - non-debug builds -->
+  <ItemDefinitionGroup Condition="$(Configuration) != 'Debug'">
+    <ClCompile>
+      <OptimizationLevel Condition="'%(ClCompile.OptimizationLevel)' == ''">O2</OptimizationLevel>
+      <GenerateDebugInformation Condition="'%(ClCompile.GenerateDebugInformation)' == ''">None</GenerateDebugInformation>
+    </ClCompile>
+    <Link>
+      <LinkerOptimizationLevel Condition="'%(Link.LinkerOptimizationLevel)' == ''">O3</LinkerOptimizationLevel>
+    </Link>    
+  </ItemDefinitionGroup>
+
+  <ItemGroup>
+    <CustomBuildStep Include="$(ProjectName)" />
+    <PreBuildEvent Include="$(ProjectName)" />
+    <PreLinkEvent Include="$(ProjectName)" />
+    <PostBuildEvent Include="$(ProjectName)" />
+  </ItemGroup>
+
 </Project>

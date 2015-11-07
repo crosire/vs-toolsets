@@ -1,0 +1,51 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <!-- Paths -->
+  <PropertyGroup>
+    <VCInstallDir Condition="'$(VCInstallDir)' == ''">$([MSBuild]::GetRegistryValueFromView('HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\VisualStudio\$(VisualStudioVersion)\Setup\VC', 'ProductDir', null, RegistryView.Registry64, RegistryView.Registry32))</VCInstallDir>
+    <VCInstallDir Condition="'$(VCInstallDir)' == ''">$([MSBuild]::GetRegistryValueFromView('HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\VCExpress\$(VisualStudioVersion)\Setup\VC', 'ProductDir', null, RegistryView.Registry64, RegistryView.Registry32))</VCInstallDir>
+    <VSInstallDir Condition="'$(VSInstallDir)' == ''">$([MSBuild]::GetRegistryValueFromView('HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\VisualStudio\$(VisualStudioVersion)\Setup\VS', 'ProductDir', null, RegistryView.Registry64, RegistryView.Registry32))</VSInstallDir>
+    <VSInstallDir Condition="'$(VSInstallDir)' == ''">$([MSBuild]::GetRegistryValueFromView('HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\VCExpress\$(VisualStudioVersion)\Setup\VS', 'ProductDir', null, RegistryView.Registry64, RegistryView.Registry32))</VSInstallDir>
+
+    <FrameworkDir Condition="'$(FrameworkDir)' == ''">FrameworkDir_is_not_defined</FrameworkDir>
+    <WindowsSDKDir Condition="'$(WindowsSDKDir)' == ''">WindowsSdkDir_is_not_defined</WindowsSDKDir>
+    <FrameworkSdkDir Condition="'$(FrameworkSdkDir)' == ''">FrameworkSdkDir_is_not_defined</FrameworkSdkDir>
+
+    <EmscriptenSDKDir Condition="'$(EmscriptenSDKDir)' == ''">$(EMSCRIPTEN)</EmscriptenSDKDir>
+
+    <IncludePath Condition="'$(IncludePath)' == ''">$(EmscriptenSDKDir)\system\local\include;$(EmscriptenSDKDir)\system\include\compat;$(EmscriptenSDKDir)\system\include\libcxx;$(EmscriptenSDKDir)\system\include;$(EmscriptenSDKDir)\system\include\emscripten;$(EmscriptenSDKDir)\system\include\bsd;$(EmscriptenSDKDir)\system\include\libc;$(EmscriptenSDKDir)\system\include\gfx;$(EmscriptenSDKDir)\system\include\net;$(EmscriptenSDKDir)\system\include\SDL;</IncludePath>
+    <ExecutablePath Condition="'$(ExecutablePath)' == ''">$(EmscriptenSDKDir);$(PATH);</ExecutablePath>
+  </PropertyGroup>
+
+  <!-- General -->
+  <PropertyGroup>
+    <Language>C++</Language>
+    <DefaultLanguageSourceExtension>.cpp</DefaultLanguageSourceExtension>
+    <IntDir Condition="'$(IntDir)' == '' and '$(IntermediateOutputPath)' != ''">$(IntermediateOutputPath)</IntDir>
+    <IntDir Condition="'$(IntDir)' == '' and '$(IntermediateOutputPath)' == ''">$(Platform)\$(Configuration)\</IntDir>
+    <OutDir Condition="'$(OutDir)' == '' and '$(SolutionDir)' != ''">$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+    <OutDir Condition="'$(OutDir)' == '' and '$(SolutionDir)' == ''">$(IntDir)</OutDir>
+  </PropertyGroup>
+
+  <!-- Configuration types -->
+  <PropertyGroup Condition="'$(ConfigurationType)' == 'HTMLPage'">
+    <LinkCompiled>true</LinkCompiled>
+    <TargetExt>.html</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(ConfigurationType)' == 'JSApplication'">
+    <LinkCompiled>true</LinkCompiled>
+    <TargetExt>.js</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(ConfigurationType)' == 'StaticLibrary'">
+    <LibCompiled>true</LibCompiled>
+    <TargetExt>.bc</TargetExt>
+  </PropertyGroup>
+
+  <!-- Project tools defaults -->
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <SystemPreprocessorDefinitions Condition="'%(ClCompile.SystemPreprocessorDefinitions)' == ''">EMSCRIPTEN;__EMSCRIPTEN__;</SystemPreprocessorDefinitions>
+    </ClCompile>
+  </ItemDefinitionGroup>
+
+</Project>
