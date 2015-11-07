@@ -74,7 +74,7 @@
 
   <StringListProperty Subtype="folder" Name="EnableWarnings" DisplayName="Enable Specific Warnings" Description="Specify one or more warnings to be enabled." Category="Advanced" Switch="W" />
   <StringListProperty Subtype="folder" Name="DisableWarnings" DisplayName="Disable Specific Warnings" Description="Specify one or more warnings to be suppressed." Category="Advanced" Switch="Wno-" />
-  <BoolProperty Name="WarningsAsErrors" DisplayName="Treat Warnings as Errors" Description="Treats all linker warnings as errors." Category="Advanced" Switch="Werror" />
+  <BoolProperty Name="TreatWarningAsError" DisplayName="Treat Warnings as Errors" Description="Treats all linker warnings as errors." Category="Advanced" Switch="Werror" />
 
   <BoolProperty Name="EchoCommandLines" DisplayName="Echo Command Lines" Description="Print out the commands emcc is invoked with during linking." Category="Advanced" />
 

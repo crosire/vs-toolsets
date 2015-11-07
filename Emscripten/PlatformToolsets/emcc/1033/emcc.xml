@@ -32,7 +32,7 @@
     <EnumValue Name="NormalWarnings" DisplayName="Enable Normal Warnings" Description="Use normal warning output level." />
     <EnumValue Name="AllWarnings" DisplayName="Enable All Warnings" Description="Output all possible warnings." Switch="Wall" />
   </EnumProperty>
-  <BoolProperty Name="WarningsAsErrors" DisplayName="Treat Warnings As Errors" Description="Treats all compiler warnings as errors." Category="General" Switch="Werror" />
+  <BoolProperty Name="TreatWarningAsError" DisplayName="Treat Warnings As Errors" Description="Treats all compiler warnings as errors." Category="General" Switch="Werror" />
 
   <IntProperty Name="ErrorLimit" DisplayName="Compilation Error Limit" Description="Set the maximum number of errors to emit before stopping. A value of zero disables the error limit. The default value is 20." Category="General" Switch="ferror-limit=" />
   <IntProperty Name="TemplateBacktraceLimit" DisplayName="Template Backtrace Error Limit" Description="Set the maximum number of entries to print in a template instantiation backtrace. A value of zero disables the limit. The default value is 10." Category="General" Switch="ftemplate-backtrace-limit=" />

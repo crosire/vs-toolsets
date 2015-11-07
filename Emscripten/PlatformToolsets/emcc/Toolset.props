@@ -12,7 +12,7 @@
       <ObjectFileName Condition="'%(ClCompile.ObjectFileName)' == ''">$(IntDir)%(Filename).o</ObjectFileName>
       <PreprocessorDefinitions Condition="'%(ClCompile.PreprocessorDefinitions)' == ''"></PreprocessorDefinitions>
       <Warnings Condition="'%(ClCompile.Warnings)' == ''">NormalWarnings</Warnings>
-      <WarningsAsErrors Condition="'%(ClCompile.WarningsAsErrors)' == ''">false</WarningsAsErrors>
+      <TreatWarningAsError Condition="'%(ClCompile.TreatWarningAsError)' == ''">false</TreatWarningAsError>
       <SystemIncludeDirectories Condition="'%(ClCompile.SystemIncludeDirectories)' == ''">$(IncludePath)</SystemIncludeDirectories>
       <EchoCommandLines Condition="'%(ClCompile.EchoCommandLines)' == ''">false</EchoCommandLines>
       <ProgramDataBaseFileName Condition="'%(ClCompile.ProgramDataBaseFileName)' == ''"></ProgramDataBaseFileName>
@@ -27,8 +27,8 @@
       <OutputFile Condition="'%(Link.OutputFile)' == ''">$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
       <AdditionalDependencies Condition="'%(Link.AdditionalDependencies)' == ''"></AdditionalDependencies>
       <AdditionalLibraryDirectories Condition="'%(Link.AdditionalLibraryDirectories)' == ''"></AdditionalLibraryDirectories>
-      <Warnings Condition="'%(ClCompile.Warnings)' == ''">NormalWarnings</Warnings>
-      <WarningsAsErrors Condition="'%(ClCompile.WarningsAsErrors)' == ''">false</WarningsAsErrors>
+      <Warnings Condition="'%(Link.Warnings)' == ''">NormalWarnings</Warnings>
+      <TreatWarningAsError Condition="'%(Link.TreatWarningAsError)' == ''">false</TreatWarningAsError>
       <TypedArrays Condition="'%(Link.TypedArrays)' == ''">Default</TypedArrays>
       <IgnoreDynamicLinking Condition="'%(Link.IgnoreDynamicLinking)' == ''">false</IgnoreDynamicLinking>
       <SystemLibraryDirectories Condition="'%(Link.SystemLibraryDirectories)' == ''">$(LibraryPath)</SystemLibraryDirectories>
