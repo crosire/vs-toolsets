@@ -11,9 +11,7 @@ This fork of Gavin Pugh's [vs-android](https://github.com/gavinpugh/vs-android) 
 
 ## Installation
 
-  1. Navigate to the following directory:
+  Copy all folders from this repository to the following location:
   
-    For VS2013: `C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Platforms`   
-    For VS2015: `C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Platforms`
-
-  2. Copy all folders from this repository to that location.
+    For VS2013: "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Platforms" 
+    For VS2015: "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Platforms"
