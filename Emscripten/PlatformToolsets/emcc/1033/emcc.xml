@@ -62,13 +62,13 @@
 
   <EnumProperty Name="ExceptionHandling" DisplayName="Enable C++ Exceptions" Description="Specifies the model of exception handling to be used by the compiler." Category="Code Generation">
     <EnumValue Name="false" DisplayName="No" Description="Disable exception handling." Switch="fno-exceptions" />
-    <EnumValue Name="Enabled" DisplayName="Yes" Description="Enable exception handling." Switch="fexceptions" />
+    <EnumValue Name="true" DisplayName="Yes" Description="Enable exception handling." Switch="fexceptions" />
     <EnumValue Name="UnwindTables" DisplayName="Unwind Tables" Description="Generates any needed static data, but does not affect the code generated." Switch="funwind-tables" />
   </EnumProperty>
 
   <BoolProperty Name="FunctionLevelLinking" DisplayName="Enable Function-Level Linking" Description="Place each function in its own section." Category="Code Generation" Switch="ffunction-sections" />
   <BoolProperty Name="DataLevelLinking" DisplayName="Enable Data-Level Linking" Description="Place each data in its own section." Category="Code Generation" Switch="fdata-sections" />
-  <BoolProperty Name="BufferSecurityCheck" DisplayName="Security Check" Description="Enable stack protectors." Category="Code Generation" Switch="fstack-protector" />
+  <BoolProperty Name="BufferSecurityCheck" DisplayName="Security Check" Description="Enable protection against stack-based memory corruption errors." Category="Code Generation" Switch="fstack-protector" />
   <BoolProperty Name="PositionIndependentCode" DisplayName="Position Independent Code" Description="Generate Position Independent Code (PIC) for use in a shared library." Category="Code Generation" Switch="fpic" />
   <BoolProperty Name="UseShortEnums" DisplayName="Use Short Enums" Description="Enum type uses only as many bytes required by input set of possible values." Category="Code Generation" Switch="fshort-enums" ReverseSwitch="fno-short-enums" />
 
@@ -126,8 +126,8 @@
 
   <EnumProperty Name="CompileAs" DisplayName="Compile As" Description="Select compile language option for .c and .cpp files. 'Default' will detect based on .c or .cpp extention." Category="Advanced">
     <EnumValue Name="Default" DisplayName="Default" />
-    <EnumValue Name="CompileAsC" Switch="x c" DisplayName="Compile as C Code" Description="Compile as C Code." />
-    <EnumValue Name="CompileAsCpp" Switch="x c++" DisplayName="Compile as C++ Code" Description="Compile as C++ Code." />
+    <EnumValue Name="CompileAsC" DisplayName="Compile as C Code" Description="Compile as C Code." Switch="x c" />
+    <EnumValue Name="CompileAsCpp" DisplayName="Compile as C++ Code" Description="Compile as C++ Code." Switch="x c++" />
   </EnumProperty>
 
   <StringListProperty Name="ForcedIncludeFiles" DisplayName="Forced Include Files" Description="One or more forced include files." Category="Advanced" Subtype="file" Switch="include " />
