@@ -1,5 +1,5 @@
-Copyright (c) 2014 Gavin Pugh (http://www.gavpugh.com/)
-Copyright (C) 2015 Patrick Mours (http://mours.net/)
+Copyright (c) 2014 Gavin Pugh
+Copyright (C) 2015 Patrick Mours
 
 This software is  provided 'as-is', without any express  or implied  warranty. In no event will the
 authors be held liable for any damages arising from the use of this software.
