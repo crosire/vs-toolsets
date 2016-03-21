@@ -4,7 +4,7 @@
     <VCToolArchitecture>Native64Bit</VCToolArchitecture>
   </PropertyGroup>
 
-  <Import Project="$(VCTargetsPath)\Platforms\$(Platform)\Platform.Common.props" />
+  <Import Project="$(_PlatformFolder)\Platform.Common.props" />
 
   <!-- Project tools defaults -->
   <ItemDefinitionGroup>

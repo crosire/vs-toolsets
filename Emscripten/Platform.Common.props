@@ -6,13 +6,10 @@
     <VCInstallDir Condition="'$(VCInstallDir)' == ''">$([MSBuild]::GetRegistryValueFromView('HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\VCExpress\$(VisualStudioVersion)\Setup\VC', 'ProductDir', null, RegistryView.Registry64, RegistryView.Registry32))</VCInstallDir>
     <VSInstallDir Condition="'$(VSInstallDir)' == ''">$([MSBuild]::GetRegistryValueFromView('HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\VisualStudio\$(VisualStudioVersion)\Setup\VS', 'ProductDir', null, RegistryView.Registry64, RegistryView.Registry32))</VSInstallDir>
     <VSInstallDir Condition="'$(VSInstallDir)' == ''">$([MSBuild]::GetRegistryValueFromView('HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\VCExpress\$(VisualStudioVersion)\Setup\VS', 'ProductDir', null, RegistryView.Registry64, RegistryView.Registry32))</VSInstallDir>
-
     <FrameworkDir Condition="'$(FrameworkDir)' == ''">FrameworkDir_is_not_defined</FrameworkDir>
     <WindowsSDKDir Condition="'$(WindowsSDKDir)' == ''">WindowsSdkDir_is_not_defined</WindowsSDKDir>
     <FrameworkSdkDir Condition="'$(FrameworkSdkDir)' == ''">FrameworkSdkDir_is_not_defined</FrameworkSdkDir>
-
     <EmscriptenSDKDir Condition="'$(EmscriptenSDKDir)' == ''">$(EMSCRIPTEN)</EmscriptenSDKDir>
-
     <IncludePath Condition="'$(IncludePath)' == ''">$(EmscriptenSDKDir)\system\local\include;$(EmscriptenSDKDir)\system\include\compat;$(EmscriptenSDKDir)\system\include\libcxx;$(EmscriptenSDKDir)\system\include;$(EmscriptenSDKDir)\system\include\emscripten;$(EmscriptenSDKDir)\system\include\bsd;$(EmscriptenSDKDir)\system\include\libc;$(EmscriptenSDKDir)\system\include\gfx;$(EmscriptenSDKDir)\system\include\net;$(EmscriptenSDKDir)\system\include\SDL;</IncludePath>
     <ExecutablePath Condition="'$(ExecutablePath)' == ''">$(EmscriptenSDKDir);$(PATH);</ExecutablePath>
   </PropertyGroup>
@@ -25,6 +22,11 @@
     <IntDir Condition="'$(IntDir)' == '' and '$(IntermediateOutputPath)' == ''">$(Platform)\$(Configuration)\</IntDir>
     <OutDir Condition="'$(OutDir)' == '' and '$(SolutionDir)' != ''">$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
     <OutDir Condition="'$(OutDir)' == '' and '$(SolutionDir)' == ''">$(IntDir)</OutDir>
+    <TargetName Condition="'$(TargetName)' == ''">$(ProjectName)</TargetName>
+    <ExtensionsToDeleteOnClean Condition="'$(ExtensionsToDeleteOnClean)' == ''">*.d;*.obj;*.tlog;*.cache;*.tmp;</ExtensionsToDeleteOnClean>
+    <PreBuildEventUseInBuild Condition="'$(PreBuildEventUseInBuild)' == ''">true</PreBuildEventUseInBuild>
+    <PreLinkEventUseInBuild Condition="'$(PreLinkEventUseInBuild)' == ''">true</PreLinkEventUseInBuild>
+    <PostBuildEventUseInBuild Condition="'$(PostBuildEventUseInBuild)' == ''">true</PostBuildEventUseInBuild>
   </PropertyGroup>
 
   <!-- Configuration types -->
