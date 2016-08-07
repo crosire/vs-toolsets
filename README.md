@@ -11,9 +11,15 @@ It is released under the terms and conditions of the [zlib license](LICENSE.txt)
   * Adds toolsets as new solution platforms and thus can be added to existing solutions.
   * Adapts the project properties dialogs to show the parameters specific to each toolchain.
 
+The following toolsets are available:
+
+  * **Clang** (platform toolset)
+  * **Emscripten** (platform)
+  * **GLSL** (build customization)
+
 ## Installation
 
   Copy all folders from this repository to the following location:
   
-    For VS2013: "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Platforms" 
-    For VS2015: "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Platforms"
+    For VS2013: "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120" 
+    For VS2015: "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140"
