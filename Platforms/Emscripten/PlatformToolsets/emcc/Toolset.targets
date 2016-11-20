@@ -2,6 +2,10 @@
 
   <Import Project="$(VCTargetsPath)\Microsoft.CppCommon.targets" />
 
+  <PropertyGroup>
+    <WebBrowserDebuggerHttpUrl Condition="'$(WebBrowserDebuggerHttpUrl)' == ''">$(TargetPath)</WebBrowserDebuggerHttpUrl>
+  </PropertyGroup>
+
   <UsingTask TaskName="GCCCompile" AssemblyFile="$(VCTargetsPath)\Platforms\$(Platform)\vs-android.Build.CPPTasks.Android.dll" />
   <UsingTask TaskName="GCCLink" AssemblyFile="$(VCTargetsPath)\Platforms\$(Platform)\vs-android.Build.CPPTasks.Android.dll" />
 
