@@ -11,23 +11,12 @@
 
     <EmscriptenSDK Condition="'$(EmscriptenSDK)' == ''">$(EMSCRIPTEN)</EmscriptenSDK>
     <EmscriptenSDK Condition="'$(EmscriptenSDK)' != '' and !HasTrailingSlash('$(EmscriptenSDK)')">$(EmscriptenSDK)\</EmscriptenSDK>
-
-    <IncludePath Condition="'$(IncludePath)' == ''">$(EmscriptenSDK)system\local\include;$(EmscriptenSDK)system\include\compat;$(EmscriptenSDK)system\include\libcxx;$(EmscriptenSDK)system\include;$(EmscriptenSDK)system\include\emscripten;$(EmscriptenSDK)system\include\bsd;$(EmscriptenSDK)system\include\libc;$(EmscriptenSDK)system\include\gfx;$(EmscriptenSDK)system\include\net;$(EmscriptenSDK)system\include\SDL;</IncludePath>
-    <ExecutablePath Condition="'$(ExecutablePath)' == ''">$(EmscriptenSDK);$(PATH);</ExecutablePath>
   </PropertyGroup>
 
   <!-- General -->
   <PropertyGroup>
     <Language>C++</Language>
     <DefaultLanguageSourceExtension>.cpp</DefaultLanguageSourceExtension>
-    <LinkCompiled>true</LinkCompiled>
-
-    <IntDir Condition="'$(IntDir)' == '' and '$(IntermediateOutputPath)' != ''">$(IntermediateOutputPath)</IntDir>
-    <IntDir Condition="'$(IntDir)' == '' and '$(IntermediateOutputPath)' == ''">$(Platform)\$(Configuration)\</IntDir>
-    <OutDir Condition="'$(OutDir)' == '' and '$(SolutionDir)' != ''">$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
-    <OutDir Condition="'$(OutDir)' == '' and '$(SolutionDir)' == ''">$(IntDir)</OutDir>
-
-    <TargetName Condition="'$(TargetName)' == ''">$(ProjectName)</TargetName>
 
     <ExtensionsToDeleteOnClean Condition="'$(ExtensionsToDeleteOnClean)' == ''">*.bc;*.o;*.tlog;*.cache;*.tmp;</ExtensionsToDeleteOnClean>
 
@@ -36,15 +25,46 @@
     <PostBuildEventUseInBuild Condition="'$(PostBuildEventUseInBuild)' == ''">true</PostBuildEventUseInBuild>
   </PropertyGroup>
 
+  <ItemGroup>
+    <CustomBuildStep Include="$(ProjectName)" />
+    <PreBuildEvent Include="$(ProjectName)" />
+    <PreLinkEvent Include="$(ProjectName)" />
+    <PostBuildEvent Include="$(ProjectName)" />
+  </ItemGroup>
+
   <!-- Configuration types -->
   <PropertyGroup Condition="'$(ConfigurationType)' == 'HTMLPage'">
     <TargetExt>.html</TargetExt>
+    <LinkCompiled>true</LinkCompiled>
   </PropertyGroup>
   <PropertyGroup Condition="'$(ConfigurationType)' == 'JSApplication'">
     <TargetExt>.js</TargetExt>
+    <LinkCompiled>true</LinkCompiled>
   </PropertyGroup>
   <PropertyGroup Condition="'$(ConfigurationType)' == 'StaticLibrary'">
     <TargetExt>.bc</TargetExt>
+    <LibCompiled>true</LibCompiled>
+  </PropertyGroup>
+
+  <!-- Configuration directories -->
+  <PropertyGroup>
+    <IntDir Condition="'$(IntDir)' == '' and '$(IntermediateOutputPath)' != ''">$(IntermediateOutputPath)</IntDir>
+    <IntDir Condition="'$(IntDir)' == '' and '$(IntermediateOutputPath)' == ''">$(Platform)\$(Configuration)\</IntDir>
+    <OutDir Condition="'$(OutDir)' == '' and '$(SolutionDir)' != ''">$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+    <OutDir Condition="'$(OutDir)' == '' and '$(SolutionDir)' == ''">$(IntDir)</OutDir>
+
+    <TargetName Condition="'$(TargetName)' == ''">$(ProjectName)</TargetName>
+    <TargetPath Condition="'$(TargetPath)' == ''">$([System.IO.Path]::Combine($(ProjectDir),$(OutDir)$(TargetName)$(TargetExt)))</TargetPath>
+    <TargetDir Condition="'$(TargetDir)' == ''">$([System.IO.Path]::GetDirectoryName('$(TargetPath)'))</TargetDir>
+    <TargetFileName Condition=" '$(TargetFileName)'=='' ">$([System.IO.Path]::GetFileName('$(TargetPath)'))</TargetFileName>
+  </PropertyGroup>
+
+  <!-- Debugging -->
+  <PropertyGroup>
+    <DebuggerFlavor>WebBrowserDebugger</DebuggerFlavor>
+
+    <WebBrowserDebuggerHttpUrl Condition="'$(TargetPath)' != ''">$(TargetPath)</WebBrowserDebuggerHttpUrl>
+    <WebBrowserDebuggerDebuggerType>Script</WebBrowserDebuggerDebuggerType>
   </PropertyGroup>
 
   <!-- Project tools defaults -->

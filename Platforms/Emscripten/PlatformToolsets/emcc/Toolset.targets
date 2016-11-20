@@ -123,6 +123,8 @@
     <PropertyPageSchema Include="$(MSBuildThisFileDirectory)$(LangID)\general.xml">
       <Context>Project</Context>
     </PropertyPageSchema>
+    <PropertyPageSchema Include="$(VCTargetsPath)$(LangID)\debugger_general.xml;" />
+    <PropertyPageSchema Include="$(VCTargetsPath)$(LangID)\debugger_web_browser.xml;" />
     <PropertyPageSchema Include="$(MSBuildThisFileDirectory)$(LangID)\directories.xml;" />
     <PropertyPageSchema Include="$(MSBuildThisFileDirectory)$(LangID)\emcc.xml" />
     <PropertyPageSchema Include="$(MSBuildThisFileDirectory)$(LangID)\emcc_lib.xml" Condition="'$(ConfigurationType)' == 'StaticLibrary'" />

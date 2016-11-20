@@ -6,6 +6,12 @@
 
   <Import Project="$(_PlatformFolder)\Platform.Common.props" />
 
+  <!-- Paths -->
+  <PropertyGroup>
+    <IncludePath Condition="'$(IncludePath)' == ''">$(EmscriptenSDK)system\local\include;$(EmscriptenSDK)system\include\compat;$(EmscriptenSDK)system\include\libcxx;$(EmscriptenSDK)system\include;$(EmscriptenSDK)system\include\emscripten;$(EmscriptenSDK)system\include\bsd;$(EmscriptenSDK)system\include\libc;$(EmscriptenSDK)system\include\gfx;$(EmscriptenSDK)system\include\net;$(EmscriptenSDK)system\include\SDL;</IncludePath>
+    <ExecutablePath Condition="'$(ExecutablePath)' == ''">$(EmscriptenSDK);$(PATH);</ExecutablePath>
+  </PropertyGroup>
+
   <!-- Project tools defaults -->
   <ItemDefinitionGroup>
     <ClCompile>
@@ -56,12 +62,5 @@
       <LinkerOptimizationLevel Condition="'%(Link.LinkerOptimizationLevel)' == ''">O3</LinkerOptimizationLevel>
     </Link>    
   </ItemDefinitionGroup>
-
-  <ItemGroup>
-    <CustomBuildStep Include="$(ProjectName)" />
-    <PreBuildEvent Include="$(ProjectName)" />
-    <PreLinkEvent Include="$(ProjectName)" />
-    <PostBuildEvent Include="$(ProjectName)" />
-  </ItemGroup>
 
 </Project>
