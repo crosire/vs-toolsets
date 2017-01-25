@@ -2,7 +2,7 @@
   <PropertyGroup>
     <PlatformShortName>emcc</PlatformShortName>
     <PlatformArchitecture>64</PlatformArchitecture>
-    <DefaultPlatformToolset Condition="'$(DefaultPlatformToolset)' == ''">emcc</DefaultPlatformToolset>
-    <PlatformToolset Condition="'$(PlatformToolset)' == ''">$(DefaultPlatformToolset)</PlatformToolset>
+    <DefaultPlatformToolset>emcc</DefaultPlatformToolset>
+    <PlatformToolset>$(DefaultPlatformToolset)</PlatformToolset>
   </PropertyGroup>
 </Project>
