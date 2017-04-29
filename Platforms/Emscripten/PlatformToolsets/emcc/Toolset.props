@@ -8,8 +8,9 @@
 
   <!-- Paths -->
   <PropertyGroup>
-    <IncludePath Condition="'$(IncludePath)' == ''">$(EmscriptenDir)\system\local\include;$(EmscriptenDir)\system\include\compat;$(EmscriptenDir)\system\include\libcxx;$(EmscriptenDir)\system\include;$(EmscriptenDir)\system\include\emscripten;$(EmscriptenDir)\system\include\bsd;$(EmscriptenDir)\system\include\libc;$(EmscriptenDir)\system\include\gfx;$(EmscriptenDir)\system\include\net;$(EmscriptenDir)\system\include\SDL;</IncludePath>
-    <ExecutablePath Condition="'$(ExecutablePath)' == ''">$(PATH);$(EmscriptenDir)</ExecutablePath>
+    <ExecutablePath Condition="'$(ExecutablePath)' == ''">$(PATH);$(EmscriptenDir);$(EmscriptenDir)\system\bin</ExecutablePath>
+    <SourcePath Condition="'$(SourcePath)' == ''">$(EmscriptenDir)\system\lib\libc\musl\src;$(EmscriptenDir)\system\lib\libcxx</SourcePath>
+    <IncludePath Condition="'$(IncludePath)' == ''">$(EmscriptenDir)\system\local\include;$(EmscriptenDir)\system\include;$(EmscriptenDir)\system\include\compat;$(EmscriptenDir)\system\include\libc;$(EmscriptenDir)\system\include\libcxx;$(EmscriptenDir)\system\lib\libc\musl\arch\emscripten;$(EmscriptenDir)\system\lib\libcxx\include</IncludePath>
   </PropertyGroup>
 
   <!-- Project tools defaults -->

@@ -63,7 +63,7 @@
   <!-- Project tools defaults -->
   <ItemDefinitionGroup>
     <ClCompile>
-      <SystemPreprocessorDefinitions Condition="'%(ClCompile.SystemPreprocessorDefinitions)' == ''">EMSCRIPTEN=1;__EMSCRIPTEN__=1;</SystemPreprocessorDefinitions>
+      <SystemPreprocessorDefinitions Condition="'%(ClCompile.SystemPreprocessorDefinitions)' == ''">EMSCRIPTEN=1;__EMSCRIPTEN__=1</SystemPreprocessorDefinitions>
     </ClCompile>
   </ItemDefinitionGroup>
 
