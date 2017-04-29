@@ -17,6 +17,6 @@
 
   <!-- Toolchain Paths -->
 
-  <StringProperty Name="EmscriptenSDK" DisplayName="Emscripten SDK" Description="Specify the directory where the emscripten SDK was installed to. See https://github.com/kripken/emscripten.  Corresponds to environment variable EMSCRIPTEN." Category="Toolchain" />
+  <StringProperty Name="EmscriptenDir" DisplayName="Emscripten" Description="Specify the directory where Emscripten is located. See https://github.com/kripken/emscripten.  Corresponds to environment variable EMSCRIPTEN." Category="Toolchain" />
 
 </Rule>

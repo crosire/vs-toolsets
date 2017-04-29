@@ -8,8 +8,8 @@
 
   <!-- Paths -->
   <PropertyGroup>
-    <IncludePath Condition="'$(IncludePath)' == ''">$(EmscriptenSDK)system\local\include;$(EmscriptenSDK)system\include\compat;$(EmscriptenSDK)system\include\libcxx;$(EmscriptenSDK)system\include;$(EmscriptenSDK)system\include\emscripten;$(EmscriptenSDK)system\include\bsd;$(EmscriptenSDK)system\include\libc;$(EmscriptenSDK)system\include\gfx;$(EmscriptenSDK)system\include\net;$(EmscriptenSDK)system\include\SDL;</IncludePath>
-    <ExecutablePath Condition="'$(ExecutablePath)' == ''">$(EmscriptenSDK);$(PATH);</ExecutablePath>
+    <IncludePath Condition="'$(IncludePath)' == ''">$(EmscriptenDir)\system\local\include;$(EmscriptenDir)\system\include\compat;$(EmscriptenDir)\system\include\libcxx;$(EmscriptenDir)\system\include;$(EmscriptenDir)\system\include\emscripten;$(EmscriptenDir)\system\include\bsd;$(EmscriptenDir)\system\include\libc;$(EmscriptenDir)\system\include\gfx;$(EmscriptenDir)\system\include\net;$(EmscriptenDir)\system\include\SDL;</IncludePath>
+    <ExecutablePath Condition="'$(ExecutablePath)' == ''">$(PATH);$(EmscriptenDir)</ExecutablePath>
   </PropertyGroup>
 
   <!-- Project tools defaults -->

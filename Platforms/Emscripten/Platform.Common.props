@@ -5,12 +5,11 @@
     <VCInstallDir Condition="'$(VCInstallDir)' == ''">$([MSBuild]::GetRegistryValueFromView('HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\VisualStudio\$(VisualStudioVersion)\Setup\VC', 'ProductDir', null, RegistryView.Registry64, RegistryView.Registry32))</VCInstallDir>
     <VSInstallDir Condition="'$(VSInstallDir)' == ''">$([MSBuild]::GetRegistryValueFromView('HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\VisualStudio\$(VisualStudioVersion)\Setup\VS', 'ProductDir', null, RegistryView.Registry64, RegistryView.Registry32))</VSInstallDir>
 
+    <EmscriptenDir Condition="'$(EmscriptenDir)' == ''">$(EMSCRIPTEN)</EmscriptenDir>
+
     <FrameworkDir Condition="'$(FrameworkDir)' == ''">FrameworkDir_is_not_defined</FrameworkDir>
     <WindowsSDKDir Condition="'$(WindowsSDKDir)' == ''">WindowsSdkDir_is_not_defined</WindowsSDKDir>
     <FrameworkSdkDir Condition="'$(FrameworkSdkDir)' == ''">FrameworkSdkDir_is_not_defined</FrameworkSdkDir>
-
-    <EmscriptenSDK Condition="'$(EmscriptenSDK)' == ''">$(EMSCRIPTEN)</EmscriptenSDK>
-    <EmscriptenSDK Condition="'$(EmscriptenSDK)' != '' and !HasTrailingSlash('$(EmscriptenSDK)')">$(EmscriptenSDK)\</EmscriptenSDK>
   </PropertyGroup>
 
   <!-- General -->
