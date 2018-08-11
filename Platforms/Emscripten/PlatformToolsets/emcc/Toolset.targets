@@ -1,13 +1,13 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-  <Import Project="$(VCTargetsPath)\Microsoft.CppCommon.targets" />
+  <Import Project="$(VCTargetsPath)Microsoft.CppCommon.targets" />
 
   <PropertyGroup>
     <WebBrowserDebuggerHttpUrl Condition="'$(WebBrowserDebuggerHttpUrl)' == ''">$(TargetPath)</WebBrowserDebuggerHttpUrl>
   </PropertyGroup>
 
-  <UsingTask TaskName="GCCCompile" AssemblyFile="$(VCTargetsPath)\Platforms\$(Platform)\vs-android.Build.CPPTasks.Android.dll" />
-  <UsingTask TaskName="GCCLink" AssemblyFile="$(VCTargetsPath)\Platforms\$(Platform)\vs-android.Build.CPPTasks.Android.dll" />
+  <UsingTask TaskName="GCCCompile" AssemblyFile="$(VCTargetsPath)Platforms\$(Platform)\vs-android.Build.CPPTasks.Android.dll" />
+  <UsingTask TaskName="GCCLink" AssemblyFile="$(VCTargetsPath)Platforms\$(Platform)\vs-android.Build.CPPTasks.Android.dll" />
 
   <!-- Compile -->
   <Target Name="ClCompile" Condition="'@(ClCompile)' != ''" DependsOnTargets="SelectClCompile">

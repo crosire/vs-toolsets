@@ -10,6 +10,7 @@
     <FrameworkDir Condition="'$(FrameworkDir)' == ''">FrameworkDir_is_not_defined</FrameworkDir>
     <WindowsSDKDir Condition="'$(WindowsSDKDir)' == ''">WindowsSdkDir_is_not_defined</WindowsSDKDir>
     <FrameworkSdkDir Condition="'$(FrameworkSdkDir)' == ''">FrameworkSdkDir_is_not_defined</FrameworkSdkDir>
+    <VCToolsInstallDir Condition="'$(VCToolsInstallDir)' == ''">VCToolsInstallDir_is_not_defined</VCToolsInstallDir>
   </PropertyGroup>
 
   <!-- General -->
