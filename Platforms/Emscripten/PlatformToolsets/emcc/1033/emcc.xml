@@ -76,23 +76,20 @@
 
   <BoolProperty Name="RuntimeTypeInfo" DisplayName="Enable Run-Time Type Information" Description="Adds code for checking C++ object types at run time (runtime type information)." Category="Language" Switch="frtti" ReverseSwitch="fno-rtti" />
 
-  <EnumProperty Name="CLanguageStandard" DisplayName="C Language Standard" Description="Determines the C language standard." Category="Language">
+  <EnumProperty Name="LanguageStandard" DisplayName="C++ Language Standard" Description="Determines the C/C++ language standard." Category="Language">
     <EnumValue Name="Default" DisplayName="Default" />
-    <EnumValue Name="c89" DisplayName="ANSI X3.159-1989" Description="C98 Language Standard." Switch="std=c89" />
-    <EnumValue Name="c99" DisplayName="ISO/IEC 9899:1999" Description="C99 Language Standard." Switch="std=c99" />
-    <EnumValue Name="c11" DisplayName="ISO/IEC 9899:2011" Description="C11 Language Standard." Switch="std=c11" />
-    <EnumValue Name="gnu99" DisplayName="C99 with GNU extensions" Description="C99 Language Standard with GNU extensions." Switch="std=gnu99" />
-    <EnumValue Name="gnu11" DisplayName="C11 with GNU extensions" Description="C11 Language Standard with GNU extensions." Switch="std=gnu11" />
-  </EnumProperty>
-  <EnumProperty Name="CppLanguageStandard" DisplayName="C++ Language Standard" Description="Determines the C++ language standard." Category="Language">
-    <EnumValue Name="Default" DisplayName="Default" />
-    <EnumValue Name="c++98" DisplayName="ISO/IEC 14882:1998" Description="C++98 Language Standard." Switch="std=c++98" />
-    <EnumValue Name="c++03" DisplayName="ISO/IEC 14882:2003" Description="C++03 Language Standard." Switch="std=c++03" />
-    <EnumValue Name="c++11" DisplayName="ISO/IEC 14882:2011" Description="C++11 Language Standard." Switch="std=c++11" />
-    <EnumValue Name="c++14" DisplayName="ISO/IEC 14882:2014" Description="C++14 Language Standard." Switch="std=c++14" />
-    <EnumValue Name="c++17" DisplayName="ISO/IEC 14882:2017" Description="C++17 Language Standard." Switch="std=c++1z" />
-    <EnumValue Name="gnu++98" DisplayName="C++98 with GNU extensions" Description="C++98 Language Standard with GNU extensions." Switch="std=gnu++98" />
-    <EnumValue Name="gnu++11" DisplayName="C++11 with GNU extensions" Description="C++11 Language Standard with GNU extensions." Switch="std=gnu++11" />
+    <EnumValue Name="stdc89" DisplayName="ANSI X3.159-1989" Description="C98 Language Standard." Switch="std=c89" />
+    <EnumValue Name="stdc99" DisplayName="ISO/IEC 9899:1999" Description="C99 Language Standard." Switch="std=c99" />
+    <EnumValue Name="stdc11" DisplayName="ISO/IEC 9899:2011" Description="C11 Language Standard." Switch="std=c11" />
+    <EnumValue Name="gnuc99" DisplayName="C99 with GNU extensions" Description="C99 Language Standard with GNU extensions." Switch="std=gnu99" />
+    <EnumValue Name="gnuc11" DisplayName="C11 with GNU extensions" Description="C11 Language Standard with GNU extensions." Switch="std=gnu11" />
+    <EnumValue Name="stdcpp98" DisplayName="ISO/IEC 14882:1998" Description="C++98 Language Standard." Switch="std=c++98" />
+    <EnumValue Name="stdcpp03" DisplayName="ISO/IEC 14882:2003" Description="C++03 Language Standard." Switch="std=c++03" />
+    <EnumValue Name="stdcpp11" DisplayName="ISO/IEC 14882:2011" Description="C++11 Language Standard." Switch="std=c++11" />
+    <EnumValue Name="stdcpp14" DisplayName="ISO/IEC 14882:2014" Description="C++14 Language Standard." Switch="std=c++14" />
+    <EnumValue Name="stdcpp17" DisplayName="ISO/IEC 14882:2017" Description="C++17 Language Standard." Switch="std=c++1z" />
+    <EnumValue Name="gnucpp98" DisplayName="C++98 with GNU extensions" Description="C++98 Language Standard with GNU extensions." Switch="std=gnu++98" />
+    <EnumValue Name="gnucpp11" DisplayName="C++11 with GNU extensions" Description="C++11 Language Standard with GNU extensions." Switch="std=gnu++11" />
   </EnumProperty>
   
   <EnumProperty Name="LanguageExtensions" DisplayName="Enable Clang Extensions" Description="Enable support for clang-specific C/C++ language extensions." Category="Language">
