@@ -14,9 +14,10 @@
   <StringListProperty Name="ExecutablePath" DisplayName="Executable Directories" Description="Path to use when searching for executable files while building a VC++ project.  Corresponds to environment variable PATH." Category="VC++" F1Keyword="VC.Project.VCDirectories.ExecutablePath" Separator=";" Subtype="folder" />
   <StringListProperty Name="IncludePath" DisplayName="Include Directories" Description="Path to use when searching for include files while building a VC++ project.  Corresponds to environment variable INCLUDE." Category="VC++" F1Keyword="VC.Project.VCDirectories.IncludePath" Separator=";" Subtype="folder" />
   <StringListProperty Name="LibraryPath" DisplayName="Library Directories" Description="Path to use when searching for library files while building a VC++ project.  Corresponds to environment variable LIB." Category="VC++" F1Keyword="VC.Project.VCDirectories.LibraryPath" Separator=";" Subtype="folder" />
+  <StringListProperty Name="SourcePath" DisplayName="Source Directories" Description="Path to use when searching for source files to use for Intellisense." Category="VC++" F1Keyword="VC.Project.VCDirectories.SourcePath" Separator=";" Subtype="folder" />
 
   <!-- Toolchain Paths -->
 
-  <StringProperty Name="EmscriptenDir" DisplayName="Emscripten" Description="Specify the directory where Emscripten is located. See https://github.com/kripken/emscripten.  Corresponds to environment variable EMSCRIPTEN." Category="Toolchain" />
+  <StringProperty Name="EmscriptenDir" DisplayName="Emscripten" Description="Specify the directory where Emscripten is located. See https://github.com/emscripten-core/emscripten.  Corresponds to environment variable EMSCRIPTEN_ROOT." Category="Toolchain" />
 
 </Rule>

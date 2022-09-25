@@ -2,15 +2,15 @@
 
   <!-- Paths -->
   <PropertyGroup>
+    <EmscriptenDir Condition="'$(EmscriptenDir)' == ''">$(EMSCRIPTEN_ROOT)</EmscriptenDir>
+    <EmscriptenDir Condition="'$(EmscriptenDir)' == '' and '$(EMSDK)' != ''">$(EMSDK)\upstream\emscripten</EmscriptenDir>
+
     <VCInstallDir Condition="'$(VCInstallDir)' == ''">$([MSBuild]::GetRegistryValueFromView('HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\VisualStudio\$(VisualStudioVersion)\Setup\VC', 'ProductDir', null, RegistryView.Registry64, RegistryView.Registry32))</VCInstallDir>
     <VSInstallDir Condition="'$(VSInstallDir)' == ''">$([MSBuild]::GetRegistryValueFromView('HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\VisualStudio\$(VisualStudioVersion)\Setup\VS', 'ProductDir', null, RegistryView.Registry64, RegistryView.Registry32))</VSInstallDir>
-
-    <EmscriptenDir Condition="'$(EmscriptenDir)' == ''">$(EMSCRIPTEN)</EmscriptenDir>
-
-    <FrameworkDir Condition="'$(FrameworkDir)' == ''">FrameworkDir_is_not_defined</FrameworkDir>
-    <WindowsSDKDir Condition="'$(WindowsSDKDir)' == ''">WindowsSdkDir_is_not_defined</WindowsSDKDir>
-    <FrameworkSdkDir Condition="'$(FrameworkSdkDir)' == ''">FrameworkSdkDir_is_not_defined</FrameworkSdkDir>
     <VCToolsInstallDir Condition="'$(VCToolsInstallDir)' == ''">VCToolsInstallDir_is_not_defined</VCToolsInstallDir>
+    <WindowsSDKDir Condition="'$(WindowsSDKDir)' == ''">WindowsSdkDir_is_not_defined</WindowsSDKDir>
+    <FrameworkDir Condition="'$(FrameworkDir)' == ''">FrameworkDir_is_not_defined</FrameworkDir>
+    <FrameworkSdkDir Condition="'$(FrameworkSdkDir)' == ''">FrameworkSdkDir_is_not_defined</FrameworkSdkDir>
   </PropertyGroup>
 
   <!-- General -->
@@ -25,7 +25,7 @@
 
     <TargetName Condition="'$(TargetName)' == ''">$(ProjectName)</TargetName>
 
-    <ExtensionsToDeleteOnClean Condition="'$(ExtensionsToDeleteOnClean)' == ''">*.bc;*.o;*.tlog;*.cache;*.tmp;</ExtensionsToDeleteOnClean>
+    <ExtensionsToDeleteOnClean Condition="'$(ExtensionsToDeleteOnClean)' == ''">*.js;*.wasm;*.bc;*.a;*.o;*.tlog;*.cache;*.tmp;</ExtensionsToDeleteOnClean>
 
     <PreBuildEventUseInBuild Condition="'$(PreBuildEventUseInBuild)' == ''">true</PreBuildEventUseInBuild>
     <PreLinkEventUseInBuild Condition="'$(PreLinkEventUseInBuild)' == ''">true</PreLinkEventUseInBuild>
@@ -48,6 +48,10 @@
   </PropertyGroup>
 
   <!-- Configuration types -->
+  <PropertyGroup Condition="'$(ConfigurationType)' == 'StaticLibrary'">
+    <TargetExt>.o</TargetExt>
+    <LibCompiled>true</LibCompiled>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(ConfigurationType)' == 'HTMLPage'">
     <TargetExt>.html</TargetExt>
     <LinkCompiled>true</LinkCompiled>
@@ -56,9 +60,9 @@
     <TargetExt>.js</TargetExt>
     <LinkCompiled>true</LinkCompiled>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(ConfigurationType)' == 'StaticLibrary'">
-    <TargetExt>.bc</TargetExt>
-    <LibCompiled>true</LibCompiled>
+  <PropertyGroup Condition="'$(ConfigurationType)' == 'StandaloneWasm'">
+    <TargetExt>.wasm</TargetExt>
+    <LinkCompiled>true</LinkCompiled>
   </PropertyGroup>
 
   <!-- Project tools defaults -->

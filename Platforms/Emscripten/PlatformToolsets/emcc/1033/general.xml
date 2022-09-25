@@ -11,35 +11,35 @@
 
   <!-- General -->
 
-  <StringProperty Name="OutDir" Category="General" DisplayName="Output Directory" Description="Specifies a relative path to the output file directory; can include environment variables." Default="$(SolutionDir)$(Configuration)\" Subtype="folder" F1Keyword="VC.Project.VCConfiguration.OutputDirectory">
+  <StringProperty Name="OutDir" DisplayName="Output Directory" Description="Specifies a relative path to the output file directory; can include environment variables." Category="General" Default="$(SolutionDir)$(Configuration)\" Subtype="folder" F1Keyword="VC.Project.VCConfiguration.OutputDirectory">
     <StringProperty.DataSource>
       <DataSource Persistence="ProjectFile" Label="" />
     </StringProperty.DataSource>
   </StringProperty>
-  <StringProperty Name="IntDir" Category="General" DisplayName="Intermediate Directory" Description="Specifies a relative path to the intermediate file directory; can include environment variables." Default="$(Configuration)\" Subtype="folder" F1Keyword="VC.Project.VCConfiguration.IntermediateDirectory">
-    <StringProperty.DataSource>
-      <DataSource Persistence="ProjectFile" Label="" />
-    </StringProperty.DataSource>
-  </StringProperty>
-
-  <StringProperty Name="TargetName" Category="General" DisplayName="Target Name" Description="Specifies a file name that this project will generate." F1Keyword="VC.Project.VCConfiguration.TargetName" Default="$(ProjectName)">
-    <StringProperty.DataSource>
-      <DataSource Persistence="ProjectFile" Label="" />
-    </StringProperty.DataSource>
-  </StringProperty>
-  <StringProperty Name="TargetExt" Category="General" DisplayName="Target Extension" Description="Specifies a file extension that this project will generate. (Example: .o, .bc, .js or .html)" F1Keyword="VC.Project.VCConfiguration.TargetExt">
+  <StringProperty Name="IntDir" DisplayName="Intermediate Directory" Description="Specifies a relative path to the intermediate file directory; can include environment variables." Category="General" Default="$(Configuration)\" Subtype="folder" F1Keyword="VC.Project.VCConfiguration.IntermediateDirectory">
     <StringProperty.DataSource>
       <DataSource Persistence="ProjectFile" Label="" />
     </StringProperty.DataSource>
   </StringProperty>
 
-  <StringListProperty Name="ExtensionsToDeleteOnClean" Category="General" DisplayName="Extensions to Delete on Clean" Description="Semi-colon delimited wildcard specification for which files in the intermediate directory to delete on clean or rebuild." Separator=";" F1Keyword="VC.Project.VCConfiguration.DeleteExtensionsOnClean">
+  <StringProperty Name="TargetName" DisplayName="Target Name" Description="Specifies a file name that this project will generate." Category="General" Default="$(ProjectName)" F1Keyword="VC.Project.VCConfiguration.TargetName">
+    <StringProperty.DataSource>
+      <DataSource Persistence="ProjectFile" Label="" />
+    </StringProperty.DataSource>
+  </StringProperty>
+  <StringProperty Name="TargetExt" DisplayName="Target Extension" Description="Specifies a file extension that this project will generate. (Example: .o, .bc, .js or .html)" Category="General" F1Keyword="VC.Project.VCConfiguration.TargetExt">
+    <StringProperty.DataSource>
+      <DataSource Persistence="ProjectFile" Label="" />
+    </StringProperty.DataSource>
+  </StringProperty>
+
+  <StringListProperty Name="ExtensionsToDeleteOnClean" DisplayName="Extensions to Delete on Clean" Description="Semi-colon delimited wildcard specification for which files in the intermediate directory to delete on clean or rebuild." Category="General" Separator=";" F1Keyword="VC.Project.VCConfiguration.DeleteExtensionsOnClean">
     <StringListProperty.DataSource>
       <DataSource Persistence="ProjectFile" Label="" />
     </StringListProperty.DataSource>
   </StringListProperty>
 
-  <StringProperty Name="BuildLogFile" Category="General" DisplayName="Build Log File" Description="Specifies the build log file to write to when build logging is enabled." F1Keyword="VC.Project.VCConfiguration.BuildLogFile" Default="$(ProjectDir)\$(MSBuildProjectName).log" Subtype="file">
+  <StringProperty Name="BuildLogFile" DisplayName="Build Log File" Description="Specifies the build log file to write to when build logging is enabled." Category="General" Default="$(ProjectDir)\$(MSBuildProjectName).log" Subtype="file" F1Keyword="VC.Project.VCConfiguration.BuildLogFile">
     <StringProperty.DataSource>
       <DataSource Persistence="ProjectFile" ItemType="BuildLog" PersistedName="Path" />
     </StringProperty.DataSource>
@@ -51,10 +51,11 @@
 
   <!-- Project Defaults -->
 
-  <EnumProperty Name="ConfigurationType" Category="ProjectDefaults" DisplayName="Configuration Type" Description="Specifies the type of output this configuration generates." F1Keyword="VC.Project.VCConfiguration.ConfigurationType">
+  <EnumProperty Name="ConfigurationType" DisplayName="Configuration Type" Description="Specifies the type of output this configuration generates." Category="ProjectDefaults" F1Keyword="VC.Project.VCConfiguration.ConfigurationType">
     <EnumValue Name="HTMLPage" DisplayName="HTML + JavaScript (.html)" />
     <EnumValue Name="JSApplication" DisplayName="JavaScript (.js)" />
-    <EnumValue Name="StaticLibrary" DisplayName="Static LLVM Bitcode Library (.bc)" />
+    <EnumValue Name="StandaloneWasm" DisplayName="Standalone WebAssembly (.wasm)" />
+    <EnumValue Name="StaticLibrary" DisplayName="Static library" />
   </EnumProperty>
 
 </Rule>

@@ -110,12 +110,12 @@
   <PropertyGroup>
     <UseDefaultProjectTools>false</UseDefaultProjectTools>
   </PropertyGroup>
-  <ItemGroup Condition="'$(ConfigurationType)' == 'HTMLPage' or '$(ConfigurationType)' == 'JSApplication'">
-    <ProjectTools Include="Link" />
+  <ItemGroup Condition="'$(LibCompiled)' == 'true'">
+    <ProjectTools Include="Lib" />
     <ProjectTools Include="CustomBuildStep" />
   </ItemGroup>
-  <ItemGroup Condition="'$(ConfigurationType)' == 'StaticLibrary'">
-    <ProjectTools Include="Lib" />
+  <ItemGroup Condition="'$(LinkCompiled)' == 'true'">
+    <ProjectTools Include="Link" />
     <ProjectTools Include="CustomBuildStep" />
   </ItemGroup>
 
@@ -131,8 +131,8 @@
     <PropertyPageSchema Include="$(VCTargetsPath)$(LangID)\debugger_web_browser.xml;" />
     <PropertyPageSchema Include="$(MSBuildThisFileDirectory)$(LangID)\directories.xml;" />
     <PropertyPageSchema Include="$(MSBuildThisFileDirectory)$(LangID)\emcc.xml" />
-    <PropertyPageSchema Include="$(MSBuildThisFileDirectory)$(LangID)\emcc_lib.xml" Condition="'$(ConfigurationType)' == 'StaticLibrary'" />
-    <PropertyPageSchema Include="$(MSBuildThisFileDirectory)$(LangID)\emcc_link.xml" Condition="'$(ConfigurationType)' == 'HTMLPage' or '$(ConfigurationType)' == 'JSApplication'" />
+    <PropertyPageSchema Include="$(MSBuildThisFileDirectory)$(LangID)\emcc_lib.xml" Condition="'$(LibCompiled)' == 'true'" />
+    <PropertyPageSchema Include="$(MSBuildThisFileDirectory)$(LangID)\emcc_link.xml" Condition="'$(LinkCompiled)' == 'true'" />
   </ItemGroup>
 
 </Project>

@@ -8,9 +8,10 @@
 
   <!-- Paths -->
   <PropertyGroup>
-    <ExecutablePath Condition="'$(ExecutablePath)' == ''">$(PATH);$(EmscriptenDir);$(EmscriptenDir)\system\bin</ExecutablePath>
-    <SourcePath Condition="'$(SourcePath)' == ''">$(EmscriptenDir)\system\lib\libc\musl\src;$(EmscriptenDir)\system\lib\libcxx</SourcePath>
-    <IncludePath Condition="'$(IncludePath)' == ''">$(EmscriptenDir)\system\local\include;$(EmscriptenDir)\system\include;$(EmscriptenDir)\system\include\compat;$(EmscriptenDir)\system\include\libc;$(EmscriptenDir)\system\include\libcxx;$(EmscriptenDir)\system\lib\libc\musl\arch\emscripten;$(EmscriptenDir)\system\lib\libcxx\include</IncludePath>
+    <ExecutablePath Condition="'$(ExecutablePath)' == ''">$(EmscriptenDir);$(EmscriptenDir)\system\bin;$(PATH);</ExecutablePath>
+    <IncludePath Condition="'$(IncludePath)' == ''">$(EmscriptenDir)\system\include;$(EmscriptenDir)\system\include\compat;$(EmscriptenDir)\system\lib\libc\musl\include;$(EmscriptenDir)\system\lib\libc\musl\arch\emscripten;$(EmscriptenDir)\system\lib\libc\musl\arch\generic;$(EmscriptenDir)\system\lib\libcxx\include;</IncludePath>
+    <LibraryPath Condition="'$(LibraryPath)' == ''"></LibraryPath>
+    <SourcePath Condition="'$(SourcePath)' == ''">$(EmscriptenDir)\system\lib\libc\musl\src;$(EmscriptenDir)\system\lib\libcxx\src;</SourcePath>
   </PropertyGroup>
 
   <!-- Project tools defaults -->
@@ -21,16 +22,17 @@
       <Warnings Condition="'%(ClCompile.Warnings)' == ''">NormalWarnings</Warnings>
       <TreatWarningAsError Condition="'%(ClCompile.TreatWarningAsError)' == ''">false</TreatWarningAsError>
       <SystemIncludeDirectories Condition="'%(ClCompile.SystemIncludeDirectories)' == ''">$(IncludePath)</SystemIncludeDirectories>
+      <PositionIndependentCode Condition="'%(ClCompile.PositionIndependentCode)' == ''">true</PositionIndependentCode>
       <EchoCommandLines Condition="'%(ClCompile.EchoCommandLines)' == ''">false</EchoCommandLines>
       <ProgramDataBaseFileName Condition="'%(ClCompile.ProgramDataBaseFileName)' == ''"></ProgramDataBaseFileName>
       <TrackerLogDirectory Condition="'%(ClCompile.TrackerLogDirectory)' == ''">$(TLogLocation)</TrackerLogDirectory>
     </ClCompile>
-    <Lib>      
+    <Lib>
       <OutputFile Condition="'%(Lib.OutputFile)' == ''">$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
       <EchoCommandLines Condition="'%(Lib.EchoCommandLines)' == ''">false</EchoCommandLines>
       <TrackerLogDirectory Condition="'%(Lib.TrackerLogDirectory)' == ''">$(TLogLocation)</TrackerLogDirectory>
     </Lib>
-    <Link>      
+    <Link>
       <OutputFile Condition="'%(Link.OutputFile)' == ''">$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
       <AdditionalDependencies Condition="'%(Link.AdditionalDependencies)' == ''"></AdditionalDependencies>
       <AdditionalLibraryDirectories Condition="'%(Link.AdditionalLibraryDirectories)' == ''"></AdditionalLibraryDirectories>
@@ -61,7 +63,7 @@
     </ClCompile>
     <Link>
       <LinkerOptimizationLevel Condition="'%(Link.LinkerOptimizationLevel)' == ''">O3</LinkerOptimizationLevel>
-    </Link>    
+    </Link>
   </ItemDefinitionGroup>
 
 </Project>
