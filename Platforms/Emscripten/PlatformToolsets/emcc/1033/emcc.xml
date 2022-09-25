@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Rule Name="CL" DisplayName="Clang C/C++" PageTemplate="tool" Order="10" SwitchPrefix="-" xmlns="http://schemas.microsoft.com/build/2009/properties" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:sys="clr-namespace:System;assembly=mscorlib">
+<Rule xmlns="http://schemas.microsoft.com/build/2009/properties" Name="CL" DisplayName="Clang C/C++" PageTemplate="tool" Order="10" SwitchPrefix="-">
 
   <Rule.Categories>    
     <Category Name="General" DisplayName="General" />
@@ -49,6 +49,7 @@
   </EnumProperty>
 
   <BoolProperty Name="OmitFramePointers" DisplayName="Omit Frame Pointers" Description="Suppresses creation of frame pointers on the call stack." Category="Optimization" Switch="fomit-frame-pointer" ReverseSwitch="fno-omit-frame-pointer" />
+  <BoolProperty Name="WholeProgramOptimization" DisplayName="Whole Program Optimization" Description="Enables link-time optimizations." Category="Optimization" Switch="flto" />
 
   <!-- Preprocessor -->
     
@@ -122,6 +123,8 @@
   <StringProperty Name="DependencyFileName" DisplayName="Dependency File Name" Category="Output Files" Switch="MF " />
 
   <!-- Advanced -->
+
+  <StringListProperty Name="BuildOptions" DisplayName="Emscripten Build Options" Description="Emscripten build options. For the available options, see src/settings.js." Category="Advanced" Switch="s" />
 
   <EnumProperty Name="CompileAs" DisplayName="Compile As" Description="Select compile language option for .c and .cpp files. 'Default' will detect based on .c or .cpp extention." Category="Advanced">
     <EnumValue Name="Default" DisplayName="Default" />

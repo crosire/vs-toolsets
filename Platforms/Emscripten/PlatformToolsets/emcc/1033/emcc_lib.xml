@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Rule Name="Lib" DisplayName="Librarian" PageTemplate="tool" Order="40" SwitchPrefix="-" xmlns="http://schemas.microsoft.com/build/2009/properties" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:sys="clr-namespace:System;assembly=mscorlib">
+<Rule xmlns="http://schemas.microsoft.com/build/2009/properties" Name="Lib" DisplayName="Librarian" PageTemplate="tool" Order="40" SwitchPrefix="-">
 
   <Rule.Categories>
     <Category Name="General" DisplayName="General" />
@@ -13,6 +13,8 @@
   <!-- General -->
 
   <StringProperty Subtype="file" Name="OutputFile" DisplayName="Output File" Category="General" Switch="o " />
+
+  <BoolProperty Name="LinkTimeCodeGeneration" DisplayName="Link Time Code Generation" Description="Enables link-time optimizations." Category="General" Switch="flto" />
 
   <BoolProperty Name="EchoCommandLines" DisplayName="Echo Command Lines" Category="General" /> 
 

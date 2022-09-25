@@ -69,7 +69,14 @@
   <ItemDefinitionGroup>
     <ClCompile>
       <SystemPreprocessorDefinitions Condition="'%(ClCompile.SystemPreprocessorDefinitions)' == ''">EMSCRIPTEN=1;__EMSCRIPTEN__=1</SystemPreprocessorDefinitions>
+      <WholeProgramOptimization Condition="'$(WholeProgramOptimization)' == 'true'">true</WholeProgramOptimization>
     </ClCompile>
+    <Lib>
+      <LinkTimeCodeGeneration Condition="'$(WholeProgramOptimization)' == 'true'">true</LinkTimeCodeGeneration>
+    </Lib>
+    <Link>
+      <LinkTimeCodeGeneration Condition="'$(WholeProgramOptimization)' == 'true'">true</LinkTimeCodeGeneration>
+    </Link>
   </ItemDefinitionGroup>
 
 </Project>

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Rule Name="ConfigurationGeneral" DisplayName="General" Description="General" PageTemplate="generic" xmlns="http://schemas.microsoft.com/build/2009/properties">
+<Rule xmlns="http://schemas.microsoft.com/build/2009/properties" Name="ConfigurationGeneral" DisplayName="General" PageTemplate="generic">
 
   <Rule.Categories>
     <Category Name="General" DisplayName="General" Description="General" />
@@ -56,6 +56,11 @@
     <EnumValue Name="JSApplication" DisplayName="JavaScript (.js)" />
     <EnumValue Name="StandaloneWasm" DisplayName="Standalone WebAssembly (.wasm)" />
     <EnumValue Name="StaticLibrary" DisplayName="Static library" />
+  </EnumProperty>
+
+  <EnumProperty Name="WholeProgramOptimization" DisplayName="Whole Program Optimization" Category="ProjectDefaults" F1Keyword="VC.Project.VCConfiguration.WholeProgramOptimization">
+    <EnumValue Name="false" DisplayName="No Whole Program Optimization" />
+    <EnumValue Name="true" DisplayName="Use Link Time Code Generation" />
   </EnumProperty>
 
 </Rule>
