@@ -52,6 +52,10 @@
     <TargetExt>.o</TargetExt>
     <LibCompiled>true</LibCompiled>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(ConfigurationType)' == 'DynamicLibrary'">
+    <TargetExt>.so</TargetExt>
+    <LinkCompiled>true</LinkCompiled>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(ConfigurationType)' == 'HTMLPage'">
     <TargetExt>.html</TargetExt>
     <LinkCompiled>true</LinkCompiled>

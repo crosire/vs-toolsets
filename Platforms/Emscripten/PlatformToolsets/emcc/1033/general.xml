@@ -55,7 +55,8 @@
     <EnumValue Name="HTMLPage" DisplayName="HTML + JavaScript (.html)" />
     <EnumValue Name="JSApplication" DisplayName="JavaScript (.js)" />
     <EnumValue Name="StandaloneWasm" DisplayName="Standalone WebAssembly (.wasm)" />
-    <EnumValue Name="StaticLibrary" DisplayName="Static library" />
+    <EnumValue Name="StaticLibrary" DisplayName="Static WebAssembly library (.o)" />
+    <EnumValue Name="DynamicLibrary" DisplayName="Dynamic WebAssembly library (.so)" />
   </EnumProperty>
 
   <EnumProperty Name="WholeProgramOptimization" DisplayName="Whole Program Optimization" Category="ProjectDefaults" F1Keyword="VC.Project.VCConfiguration.WholeProgramOptimization">

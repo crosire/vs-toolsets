@@ -23,5 +23,6 @@ The following toolsets are available:
 
   Copy all folders from this repository to the following location:
   
-    For Visual Studio 2013: %PROGRAMFILES(X86)%\MSBuild\Microsoft.Cpp\v4.0\V120 
-    For Visual Studio 2015: %PROGRAMFILES(X86)%\MSBuild\Microsoft.Cpp\v4.0\V140
+    For Visual Studio 2017: %PROGRAMFILES(X86)%\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets
+    For Visual Studio 2019: %PROGRAMFILES(X86)%\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160
+    For Visual Studio 2022: %PROGRAMFILES%\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170
